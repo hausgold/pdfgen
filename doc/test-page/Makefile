@@ -14,6 +14,7 @@ NPM ?= npm
 FIND ?= find
 MKDIR ?= mkdir
 TEST ?= test
+PDFGEN ?= ../../bin/pdfgen
 CLEANCSS ?= $(VENDOR_DIR)/.bin/cleancss
 INLINE ?= $(NODE) bin/inline.js
 PUG ?= $(VENDOR_DIR)/.bin/pug
@@ -49,11 +50,16 @@ build: clean install
 	@$(INLINE) $(DIST_DIR)/index.html
 	# > Cleanup unneeded assets
 	@$(FIND) $(DIST_DIR) -type f -not -name "*.html" -exec $(RM) -f {} \;
+	# > Generate the PDF file
+	@$(PDFGEN) 'file://$(abspath dist/index.html)' $(DIST_DIR)/test-page.pdf
 
 check: build
 	# Check the generated test page
 	@$(TEST) -f $(DIST_DIR)/index.html \
-		|| (echo '# Generated test page was not found.'; exit 1)
+		|| (echo '# Generated test page was not found (html).'; exit 1)
 	# Generated test page ($(DIST_DIR)/index.html) was found. Yay.
+	@$(TEST) -f $(DIST_DIR)/test-page.pdf \
+		|| (echo '# Generated test page was not found (pdf).'; exit 1)
+	# Generated test page ($(DIST_DIR)/test-page.pdf) was found. Yay.
 
 all: check

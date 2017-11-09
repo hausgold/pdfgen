@@ -1,9 +1,9 @@
 $header_border: #646384;
-$header_bg: #ffffff;
-$footer_bg: #ffffff;
-$footer_border: #000000;
-$text_header: #000000;
-$text_footer: #000000;
+$footer_border: #646384;
+$header_bg: lighten($header_border, 20%);
+$footer_bg: darken($footer_border, 20%);
+$text_header: #ffffff;
+$text_footer: #ffffff;
 $text_content: #000000;
 
 .page {
@@ -18,7 +18,7 @@ $text_content: #000000;
     background-image: url("http://acmelogos.com/images/logo-1.svg");
     background-position: 1em center;
     background-repeat: no-repeat;
-    background-size: 10%;
+    background-size: 12em;
     border-bottom: .75em solid $header_border;
     color: $text_header;
     height: 10vh;
