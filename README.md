@@ -1,6 +1,6 @@
 ![pdfgen](doc/assets/project.png)
 
-[![Build Status](https://api.travis-ci.com/hausgold/pdfgen.svg?token=xxxxxxxxxxxxxxxxxxxx&branch=master)](https://travis-ci.com/hausgold/pdfgen)
+[![Build Status](https://travis-ci.org/hausgold/pdfgen.svg?branch=master)](https://travis-ci.org/hausgold/pdfgen)
 
 This tool is dedicated to the generation of a PDF file from a given URL in a
 highly customizable manner. It makes use of the [Google Puppeteer
@@ -33,7 +33,7 @@ which are supported by
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) (>=6)
+* [Node.js](https://nodejs.org) (>=7)
 * [GNU Make (development)](https://www.gnu.org/software/make/) (>=4.2.1)
 
 ## Getting started
