@@ -1,6 +1,6 @@
 {
   "name": "pdfgen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate a PDF from a given URL",
   "main": "bin/url-to-pdf",
   "scripts": {
