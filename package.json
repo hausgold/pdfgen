@@ -1,0 +1,29 @@
+{
+  "name": "pdfgen",
+  "version": "1.0.0",
+  "description": "Generate a PDF from a given URL",
+  "main": "bin/url-to-pdf",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "pdf",
+    "generation",
+    "chromium",
+    "puppeteer"
+  ],
+  "author": "Hermann Mayer <hermann.mayer@hausgold.de>",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "mkdirp": "^0.5.1",
+    "puppeteer": "^0.10.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "jsdoc": "^3.5.5",
+    "millis": "^2.2.2",
+    "mocha": "^3.5.3",
+    "sleep": "^5.1.1"
+  }
+}

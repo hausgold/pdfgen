@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+const config = new (require('../lib/config'))(process.argv);
+const puppeteer = new (require('../lib/puppeteer'));
+const meta = require('../package.json');
+const seconds = require('millis/seconds');
+
+/**
+ * Print given errors. This function can handle a
+ * single error object and an array of errors.
+ *
+ * @param {?Error|?Error[]} err The error(s)
+ */
+const printErrors = (err) => {
+  let pad = '    ';
+  if (Array.isArray(err)) {
+    err.forEach((e) => console.log(pad + e.message));
+  } else {
+    console.log(pad + err.message);
+  }
+};
+
+/**
+ * Promisify the setTimeout function.
+ *
+ * @param {integer} time The time in ms to delay
+ * @return {Promise} The delayed promise
+ */
+const delay = (time) => {
+  return new Promise((resolve) => { setTimeout(resolve, time) });
+};
+
+// Parse the configuration and continue the PDF processing
+config.parse()
+  // Handle version requests
+  .then((hash) => {
+    if (hash.version) {
+      console.log(meta.version);
+      process.exit(0);
+    }
+    return hash;
+  })
+  // Handle help requests
+  .then(async (hash) => {
+    if (!hash.args || hash.help) {
+      console.log(await config.help());
+      process.exit(0);
+    }
+    return hash;
+  })
+  // Handle the preparation of the browser
+  .then(async (hash) => {
+    // Setup Chromium and open a new page
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    // Open the given URL
+    await page.goto(hash.url, {
+      waitUntil: 'load'
+    });
+
+    // Set the given media type
+    await page.emulateMedia(hash.media);
+
+    return {hash, page};
+  })
+  // Handle the network delay after the browser page was opened
+  .then(async ({hash, page}) => {
+    return delay(hash.networkTimeout).then(() => { return {hash, page} });
+  })
+  // Generate the PDF file and close Chromium
+  .then(async ({hash, page}) => {
+    await page.pdf(hash.pdf);
+    puppeteer.close();
+  })
+  // Handle any processing errors
+  .catch(async (err) => {
+    puppeteer.close();
+    console.log(await config.help());
+    console.log('\n  ---\n\n  Processing Errors:\n');
+    printErrors(err);
+    process.exit(1);
+  });

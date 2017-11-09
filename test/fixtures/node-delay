@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+// This is a mean little sleep helper. It sleeps for a given
+// time and executes then the given command. With the help of
+// this you can simulate a spwaning process with a hard delay.
+//
+// @param {number} $1 The sleep delay
+// @param {string} $2 The command (without shell)
+// @param {string[]} $3 The arguments for the command
+
+const sleep = require('sleep').sleep;
+const spawn = require('child_process').spawn;
+const spawnSync = require('child_process').spawnSync;
+
+// Extract the commandline arguments
+const delay = parseFloat(process.argv[2]);
+const command = process.argv[3];
+const arguments = process.argv.slice(4);
+
+// Delay the command to run by the real C sleep
+// functionality via a C++ binding.
+sleep(delay);
+
+// Just start the given command as a child
+// but we keep it near to us and we die
+// when our child dies.
+spawnSync(command, arguments);
+
+// // Start the new process and fork it off
+// const handle = spawn(command, arguments, {
+//   detached: false,
+//   stdio: 'ignore'
+// });
+//
+// // Do not wait for the child do die
+// handle.unref();

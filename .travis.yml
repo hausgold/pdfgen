@@ -1,0 +1,39 @@
+language: node_js
+node_js:
+  - 'node'
+  - 8
+  - 7
+  - 6
+
+addons:
+  apt:
+    # Most of this is required by Chromium to be full functional. This is quite
+    # a lot for the headless mode, but at the moment required. Maybe Google
+    # provides a fully static build for headless mode in the future.
+    packages: ['make', 'curl', 'ghostscript', 'ca-certificates',
+               'fonts-liberation', 'gconf-service', 'ghostscript',
+               'libappindicator1', 'libasound2', 'libasound2-dev',
+               'libatk1.0-0', 'libc6', 'libcairo2', 'libcups2', 'libdbus-1-3',
+               'libexpat1', 'libfontconfig1', 'libgcc1', 'libgconf-2-4',
+               'libgconf2-dev', 'libgdk-pixbuf2.0-0', 'libglib2.0-0',
+               'libgtk-3-0', 'libgtk-3-dev', 'libnspr4', 'libnss3',
+               'libpango-1.0-0', 'libpangocairo-1.0-0', 'libx11-6',
+               'libx11-xcb1', 'libxcb1', 'libxcomposite1', 'libxcursor1',
+               'libxdamage1', 'libxext6', 'libxfixes3', 'libxi6', 'libxrandr2',
+               'libxrender1', 'libxss1', 'libxtst6', 'lsb-release', 'wget',
+               'xdg-utils']
+
+env:
+  global:
+    - MAKE_ENV=baremetal
+    - SIDEKIQ_REDIS_URL=''
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - time make install
+
+script:
+  - time make test
