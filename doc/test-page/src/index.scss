@@ -1,0 +1,74 @@
+$header_border: #646384;
+$header_bg: #ffffff;
+$footer_bg: #ffffff;
+$footer_border: #000000;
+$text_header: #000000;
+$text_footer: #000000;
+$text_content: #000000;
+
+.page {
+  counter-increment: page;
+  height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+
+  .header {
+    background-color: $header_bg;
+    background-image: url("http://acmelogos.com/images/logo-1.svg");
+    background-position: 1em center;
+    background-repeat: no-repeat;
+    background-size: 10%;
+    border-bottom: .75em solid $header_border;
+    color: $text_header;
+    height: 10vh;
+  }
+
+  .content {
+    color: $text_content;
+    padding: 3em;
+    text-align: justify;
+
+    h1 {
+      font-family: 'Libre Barcode 128 Text', cursive;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.2em;
+      margin-top: .3em;
+    }
+  }
+
+  .footer {
+    align-items: center;
+    background-color: $footer_bg;
+    border-top: .75em solid $footer_border;
+    bottom: 0;
+    color: $text_footer;
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    position: absolute;
+    width: 100vw;
+
+    .inner-footer {
+      width: 100vw;
+
+      .impress,
+      .page-number {
+        display: inline-block;
+        padding: 0 3em 0;
+      }
+
+      .page-number {
+        float: right;
+      }
+
+      .page-number:before {
+        content: "Page " counter(page) " of ";
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+mixin loremparagraph
+  p.
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+    erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+    et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+    Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+    takimata sanctus est Lorem ipsum dolor sit amet.
+mixin footer
+  .footer
+    .inner-footer
+      .impress.
+        ACME Hamburg
+        &bull;
+        Your Street. 77
+        &bull;
+        D-22769 Hamburg
+      .page-number
+mixin repeatparagraph(word)
+  p
+    each v in Array(200)
+      |  #{word}
+
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport",
+         content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title PDF Generation Test Page
+    link(href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text|Pacifico", rel="stylesheet")
+    link(href="normalize.css", rel="stylesheet")
+    link(href="index.css", rel="stylesheet")
+    script(src="index.js")
+  body
+    .page
+      .header
+      .content
+        h1 ACME Hamburg
+        h2 D-22769 Hamburg
+        +loremparagraph
+        +loremparagraph
+      +footer
+    .page
+      .header
+      .content
+        +loremparagraph
+        +loremparagraph
+        +loremparagraph
+        +loremparagraph
+        +loremparagraph
+      +footer
+    .page
+      .header
+      .content
+        +loremparagraph
+        +loremparagraph
+        +loremparagraph
+      +footer
+    .page
+      .header
+      .content
+        h1 Content is too long
+        h2 (One to ten)
+        +repeatparagraph('One')
+        +repeatparagraph('Two')
+        +repeatparagraph('Three')
+        +repeatparagraph('Four')
+        +repeatparagraph('Five')
+        +repeatparagraph('Six')
+        +repeatparagraph('Seven')
+        +repeatparagraph('Eight')
+        +repeatparagraph('Nine')
+        +repeatparagraph('Ten')
+      +footer
