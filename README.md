@@ -8,14 +8,28 @@ API](https://github.com/GoogleChrome/puppeteer/) to utilize Chromium to fulfill
 the task. It also ships some website examples which provide tips on how to
 design the pages to be printable.
 
+- [Why another PDF generation tool?](#why-another-pdf-generation-tool)
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+  - [Commandline options](#commandline-options)
+  - [Units options](#units-options)
+  - [Format options](#format-options)
+- [Example Website](#example-website)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Code of Conduct](#code-of-conduct)
+
 ## Why another PDF generation tool?
 
 If you are into typesetting/[LaTeX](https://www.latex-project.org/) or tools
 like [wkhtmltopdf](https://wkhtmltopdf.org/) you know they can be hard to
-manage by web devs or are not intented to be simple on usage. This is
+manage by web devs or are not intented to be simple at usage. This is
 especially worse when it comes to dynamic content like user customizable info
 papers. pdfgen allows you to easily make use of the latest web technologies
-which are supported by Chromium. (including CSS3 flexbox, custom webfonts, etc)
+which are supported by
+[Chromium](https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md).
+(including CSS3 flexbox, custom webfonts, etc)
 
 ## Requirements
 
@@ -24,7 +38,7 @@ which are supported by Chromium. (including CSS3 flexbox, custom webfonts, etc)
 
 ## Getting started
 
-The first and only preparation step is the installation the pdfgen utility.
+The first and only preparation step is the installation of the pdfgen utility.
 Open up your favorite terminal emulator and paste the following command:
 
 ```bash
@@ -66,14 +80,14 @@ Option | Description
 **--margin-bottom**       | Bottom margin, accepts values labeled with units.
 **--margin-left**         | Left margin, accepts values labeled with units.
 
-All possible units are:
+### Units options
 
 * px - pixel
 * cm - centimeter
 * in - inch
 * mm - millimeter
 
-The format options are:
+### Format options
 
 * Letter: 8.5in x 11in
 * Tabloid: 11in x 17in
@@ -92,14 +106,15 @@ This repository contains [a full test page project](./doc/test-page/) which
 demonstrate the simple usage of the pdfgen utility on a custom website. It
 makes use of the [pug template engine](https://pugjs.org),
 [SASS](http://sass-lang.com/), and vanilla JavaScript. Just have a look at the
-few simple lines of code and play around with it.
+few simple lines of code and play around with it or just view [the resulting
+PDF file](./doc/test-page/dist/test-page.pdf) if your are curious.
 
 There are some caveats you should know about: The PDF generation (print media)
 does not work very well with the responsive approach. You can of course
 implement your custom website this way and provide a different stylesheet for
 the print media type, but this won't save you from the content-per-page issue
-in case you care about fixed headers/footers. The last page on the test page
-website will demonstrate this issue.
+in case you care about fixed headers/footers. The last page at the [example
+website](./doc/test-page/dist/test-page.pdf) will demonstrate this issue.
 
 The general advise here is to use a custom page class which works like a
 content container with a fixed height and width (make use of the `100vh/100vw`
