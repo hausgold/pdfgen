@@ -1,3 +1,11 @@
+### 1.0.4
+
+* Added a post installation hook to fix the local Chromium file permissions
+  (downloaded and installed by puppeteer) This adds file permissions for
+  read and execute for group and others. With the new fixup script the
+  pdfgen utility should work flawless when installed by root and used
+  by a regular user.
+
 ### 1.0.3
 
 * Moved the millis dev dependency to non-dev list
