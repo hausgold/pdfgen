@@ -41,7 +41,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - time make test
+  - travis_retry time make test
 
 after_script:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
