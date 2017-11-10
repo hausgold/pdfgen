@@ -4,7 +4,8 @@
   "description": "Generate a PDF from a given URL",
   "main": "bin/url-to-pdf",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=lcov"
   },
   "keywords": [
     "pdf",
@@ -24,6 +25,7 @@
     "jsdoc": "^3.5.5",
     "millis": "^2.2.2",
     "mocha": "^3.5.3",
+    "nyc": "^11.3.0",
     "sleep": "^5.1.1"
   }
 }

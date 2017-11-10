@@ -1,6 +1,10 @@
 ![pdfgen](doc/assets/project.png)
 
-[![Build Status](https://travis-ci.org/hausgold/pdfgen.svg?branch=master)](https://travis-ci.org/hausgold/pdfgen)
+[![Build Status][travis-badge]][travis-url]
+[![Code Climate][codeclimate-badge]][codeclimate-url]
+[![Coverage Status][coverage-badge]][coverage-url]
+[![npm version][npm-version-badge]][npm-url]
+[![npm downloads][npm-downloads-badge]][npm-url]
 
 This tool is dedicated to the generation of a PDF file from a given URL in a
 highly customizable manner. It makes use of the [Google Puppeteer
@@ -159,3 +163,13 @@ License](http://opensource.org/licenses/MIT).
 Everyone interacting in the pdfgen project’s codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
 conduct](./CODE_OF_CONDUCT.md).
+
+[travis-badge]: https://travis-ci.org/hausgold/pdfgen.svg?branch=master
+[travis-url]: https://travis-ci.org/hausgold/pdfgen
+[codeclimate-badge]: https://codeclimate.com/github/hausgold/pdfgen/badges/gpa.svg
+[codeclimate-url]: https://codeclimate.com/github/hausgold/pdfgen
+[coverage-badge]: https://codeclimate.com/github/hausgold/pdfgen/badges/coverage.svg
+[coverage-url]: https://codeclimate.com/github/hausgold/pdfgen/coverage
+[npm-version-badge]: https://img.shields.io/npm/v/pdfgen.svg
+[npm-downloads-badge]: https://img.shields.io/npm/dm/pdfgen.svg
+[npm-url]: https://www.npmjs.com/package/pdfgen

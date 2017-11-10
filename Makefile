@@ -6,9 +6,10 @@ SHELL := bash
 .SUFFIXES:
 .PHONY:
 
-VENDOR_DIR ?= node_modules
+COVERAGE_DIR ?= coverage
 DOC_DIR ?= doc/api
 TMP_DIR ?= test/tmp
+VENDOR_DIR ?= node_modules
 
 CONVERT ?= convert
 JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
@@ -39,7 +40,7 @@ clean: clean-test-results
 
 clean-test-results:
 	# Clean test results
-	@$(RM) -rf $(TMP_DIR)
+	@$(RM) -rf $(TMP_DIR) $(COVERAGE_DIR)
 
 distclean: clean
 	# Same as clean and cleans dependencies
@@ -56,8 +57,9 @@ docs: clean
 
 test-specs: clean-test-results
 	# Check the application specifications
-	@$(MKDIR) -p $(TMP_DIR)
+	@$(MKDIR) -p $(TMP_DIR) $(COVERAGE_DIR)
 	@$(NPM) run test
+	@$(NPM) run coverage
 
 test: test-specs
 
