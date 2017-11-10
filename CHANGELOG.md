@@ -1,3 +1,9 @@
+### 1.0.3
+
+* Moved the millis dev dependency to non-dev list
+  This fix the pdfgen utility usage on production installations.
+* Make use of the travis_retry utility to stabilize CI builds
+
 ### 1.0.2
 
 * Corrected the pdfgen binary configuration on the package.json
