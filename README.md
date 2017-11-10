@@ -156,6 +156,6 @@ License](http://opensource.org/licenses/MIT).
 
 ## Code of Conduct
 
-Everyone interacting in the Plankton project’s codebases, issue trackers, chat
+Everyone interacting in the pdfgen project’s codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
 conduct](./CODE_OF_CONDUCT.md).
