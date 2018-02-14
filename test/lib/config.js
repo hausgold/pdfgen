@@ -45,7 +45,9 @@ describe('Config', function() {
 
     [
       // option          , valid      , expected   , config path
-      ['network-timeout' , '1000'     , 1000       , 'networkTimeout']         ,
+      ['timeout'         , '30000'    , 30000      , 'timeout']                ,
+      ['network-timeout' , '1000'     , 1000       , 'delay']                  ,
+      ['delay'           , '1000'     , 1000       , 'delay']                  ,
       ['media'           , 'print'    , 'print'    , 'media']                  ,
       ['landscape'       , 'true'     , true       , 'pdf.landscape']          ,
       ['header-footer'   , 'false'    , false      , 'pdf.displayHeaderFooter'],
@@ -59,6 +61,8 @@ describe('Config', function() {
       ['margin-right'    , '99mm'     , '99mm'     , 'pdf.margin.right']       ,
       ['margin-bottom'   , '2.52cm'   , '2.52cm'   , 'pdf.margin.bottom']      ,
       ['margin-left'     , '22.222in' , '22.222in' , 'pdf.margin.left']        ,
+      ['header-template' , '"Test"'   , '"Test"'   , 'pdf.headerTemplate']     ,
+      ['footer-template' , '"Test"'   , '"Test"'   , 'pdf.footerTemplate']     ,
     ].forEach((opts) => {
       let option = opts[0];
       let valid = opts[1];

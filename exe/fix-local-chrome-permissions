@@ -7,12 +7,27 @@ if (process.platform === 'win32') {
 
 const fs = require('fs');
 const path = require('path');
+const puppeteer = require('puppeteer');
 
-// Get the installed chromium path
-const Downloader = require('puppeteer/utils/ChromiumDownloader');
-const ChromiumRevision = require('puppeteer/package.json').puppeteer.chromium_revision;
-const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), ChromiumRevision);
+// Master version (2018-02-14)
+// const browserFetcher = puppeteer.createBrowserFetcher();
+// const revision = require('puppeteer/package.json').puppeteer.chromium_revision;
+// const revisionInfo = browserFetcher.revisionInfo(revision);
+// const chromiumPath = revisionInfo.folderPath;
+
+// 1.0.0 version
+const Downloader = require('puppeteer/lib/Downloader');
+const downloader = Downloader.createDefault();
+const platform = downloader.currentPlatform();
+const revision = Downloader.defaultRevision();
+const revisionInfo = downloader.revisionInfo(platform, revision);
 const chromiumPath = revisionInfo.folderPath;
+
+// 0.10.2 version
+// const Downloader = require('puppeteer/utils/ChromiumDownloader');
+// const revision = require('puppeteer/package.json').puppeteer.chromium_revision;
+// const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), revision);
+// const chromiumPath = revisionInfo.folderPath;
 
 // Some sneaky little helpers to get the job done
 const walkSync = (d) => {

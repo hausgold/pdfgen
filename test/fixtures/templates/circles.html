@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        background: #673AB7;
+      }
+      header, footer {
+        height: 1cm;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #9C27B0;
+      }
+      footer {
+        top: auto;
+        bottom: 0;
+        background: #E91E63;
+      }
+      .first {
+        position: absolute;
+        border-radius: 50% 0 0 0;
+        width: 10cm;
+        height: 10cm;
+        top: calc(50% - 5cm);
+        left: 2cm;
+        background: #FF5722;
+      }
+      .second {
+        position: absolute;
+        border-radius: 50%;
+        width: 10cm;
+        height: 10cm;
+        top: calc(50% - 5cm);
+        left: calc(50% - 5cm);
+        background: #FF9800;
+        z-index: 10;
+      }
+      .third {
+        position: absolute;
+        width: 10cm;
+        height: 10cm;
+        top: calc(50% - 5cm);
+        right: 2cm;
+        background: #FFC107;
+        border-radius: 0 0 50% 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <div class="first"></div>
+    <div class="second"></div>
+    <div class="third"></div>
+    <footer></footer>
+  </body>
+</html>

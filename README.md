@@ -18,6 +18,7 @@ design the pages to be printable.
   - [Commandline options](#commandline-options)
   - [Units options](#units-options)
   - [Format options](#format-options)
+  - [Template injection classes](#template-injection-classes)
 - [Example Website](#example-website)
 - [Development](#development)
 - [Contributing](#contributing)
@@ -69,20 +70,25 @@ supported commandline options:
 
 Option | Description
 -------|------------
-**-t, --network-timeout** | A timeout to wait before completing navigation in ms. (**1000**)
-**-m, --media**           | Changes the CSS media type of the page. (**page**, print)
+**-T, --timeout**         | The maximum time to wait for the page to be loaded in ms. **30000**
+**-d, --delay**           | Wait for a given time after the page was opened in ms. **1000**
+**-t, --network-timeout** | Same as --delay, [deprecated] **1000**
+**-m, --media**           | Changes the CSS media type of the page. (page, print)
 **-l, --landscape**       | Paper orientation. (**false**, true)
 **-h, --header-footer**   | Display header and footer. (**false**, true)
 **-b, --background**      | Print background graphics. (false, **true**)
 **-s, --scale**           | Scale of the webpage rendering. (**1**)
 **-r, --range**           | Paper ranges to print, e.g., "1-5, 8". (**prints all pages**)
 **-f, --format**          | Paper format. If set, takes priority over width or height options. (**A4**)
-**--width**               | Paper width, accepts values labeled with units.
-**--height**              | Paper height, accepts values labeled with units.
-**--margin-top**          | Top margin, accepts values labeled with units.
-**--margin-right**        | Right margin, accepts values labeled with units.
-**--margin-bottom**       | Bottom margin, accepts values labeled with units.
-**--margin-left**         | Left margin, accepts values labeled with units.
+**-w, --width**           | Paper width, accepts values labeled with units.
+**-H, --height**          | Paper height, accepts values labeled with units.
+**-M, --margin**          | All margins, accepts values labeled with units. (**0**)
+**-N, --margin-top**      | Top margin, accepts values labeled with units.
+**-W, --margin-right**    | Right margin, accepts values labeled with units.
+**-S, --margin-bottom**   | Bottom margin, accepts values labeled with units.
+**-E, --margin-left**     | Left margin, accepts values labeled with units.
+**-p, --header-template** | HTML template for the print header.
+**-P, --footer-template** | HTML template for the print footer.
 
 ### Units options
 
@@ -103,6 +109,14 @@ Option | Description
 * A1: 23.4in x 33.1in
 * A3: 11.7in x 16.5in
 * A5: 5.83in x 8.27in
+
+### Template injection classes
+
+* date: formatted print date
+* title: document title
+* url: document location
+* pageNumber: current page number
+* totalPages: total pages in the document
 
 ## Example Website
 
