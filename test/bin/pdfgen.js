@@ -59,24 +59,25 @@ describe('pdfgen Binary', function() {
     context('url', () => {
       it('prints errors on invalid URLs', () => {
         expect(Suite.capture(binary + ` ${invalidUrl} ${validDest}`))
-          .to.match(/Failed to navigate:/)
+          .to.match(/ERR_CONNECTION_REFUSED|ERR_NAME_NOT_RESOLVED/)
       });
     });
   });
 
-  describe('file generation', () => {
+  describe('file generation (defaults)', () => {
     [
       'simple',
       'broken',
       'complex',
-      'multipage'
+      'multipage',
+      'websockets'
     ].forEach((flavor) => {
       context(`${flavor} HTML`, () => {
         let url = 'file://' + Suite.fixture(flavor + '.html');
         let png = Suite.fixture(flavor + '.png');
 
         beforeEach(() => {
-          Suite.capture(binary + ` ${url} ${validDest}`);
+          Suite.capture(`${binary} ${url} ${validDest}`);
         });
 
         it('generates a PDF file', () => {
@@ -86,6 +87,33 @@ describe('pdfgen Binary', function() {
         it('produces the expected PDF file (1% tolerance)', () => {
           expect(Suite.comparePdfWithPng(validDest, png)).to.be.lessThan(1);
         });
+      });
+    });
+  });
+
+  describe('file generation (templates)', () => {
+    context('circles HTML', () => {
+      let url = 'file://' + Suite.fixture('templates/circles.html');
+      let png = Suite.fixture('templates/circles.png');
+
+      beforeEach(() => {
+        Suite.capture(`${binary} ${url} ${validDest} \
+          --margin-top 2cm \
+          --margin-bottom 2cm \
+          --header-footer true \
+          --landscape true \
+          --header-template \
+           '${Suite.fixtureContent('templates/circles.header')}' \
+          --footer-template \
+           '${Suite.fixtureContent('templates/circles.footer')}'`);
+      });
+
+      it('generates a PDF file', () => {
+        expect(existsSync(validDest)).to.be(true);
+      });
+
+      it('produces the expected PDF file (1% tolerance)', () => {
+        expect(Suite.comparePdfWithPng(validDest, png)).to.be.lessThan(1);
       });
     });
   });

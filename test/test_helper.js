@@ -4,6 +4,7 @@ const spawn = require('child_process').spawn;
 const execSync = require('child_process').execSync;
 const spawnSync = require('child_process').spawnSync;
 const unlinkSync = require('fs').unlinkSync;
+const readFileSync = require('fs').readFileSync;
 const stream = require('stream');
 
 // Added expect to the global context
@@ -14,6 +15,7 @@ global.Suite = Suite = {
   rootPath: resolve(__dirname, '..'),
   root: (path) => resolve(__dirname, '..', path),
   fixture: (path) => resolve(__dirname, 'fixtures', path),
+  fixtureContent: (path) => readFileSync(Suite.fixture(path)).toString(),
   randomFloat: (min, max) => Math.random() * (max - min) + min
 };
 
@@ -31,7 +33,7 @@ Suite.propperProcessTimeout = (ctx) => {
 
 // Rescue puppeteer test case (close the browser)
 Suite.rescuePuppeteer = (puppeteer, done) => {
-  return (err) => { puppeteer.close(); done(err); };
+  return (err) => { puppeteer.close('rescue'); done(err); };
 };
 
 // Sleep process handling
@@ -148,7 +150,8 @@ Suite.comparePdfWithPng = (pdf, png) => {
 
   // Convert PDF file to PNG first
   execSync(`convert \
-    -density 150 -trim ${pdf} \
+    -define profile:skip=ICC \
+    -density 150 ${pdf} \
     -quality 100 +append ${actual}`);
 
   // Calculate the rmse error percentage

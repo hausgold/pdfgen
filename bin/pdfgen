@@ -12,11 +12,10 @@ const seconds = require('millis/seconds');
  * @param {?Error|?Error[]} err The error(s)
  */
 const printErrors = (err) => {
-  let pad = '    ';
   if (Array.isArray(err)) {
-    err.forEach((e) => console.log(pad + e.message));
+    err.forEach((e) => console.log(e.message));
   } else {
-    console.log(pad + err.message);
+    console.log(err.message);
   }
 };
 
@@ -56,7 +55,8 @@ config.parse()
 
     // Open the given URL
     await page.goto(hash.url, {
-      waitUntil: 'load'
+      timeout: hash.timeout,
+      waitUntil: ['load', 'domcontentloaded', 'networkidle2']
     });
 
     // Set the given media type
@@ -64,9 +64,9 @@ config.parse()
 
     return {hash, page};
   })
-  // Handle the network delay after the browser page was opened
+  // Handle the a user defined delay after the browser page was opened
   .then(async ({hash, page}) => {
-    return delay(hash.networkTimeout).then(() => { return {hash, page} });
+    return delay(hash.delay).then(() => { return {hash, page} });
   })
   // Generate the PDF file and close Chromium
   .then(async ({hash, page}) => {
@@ -76,8 +76,6 @@ config.parse()
   // Handle any processing errors
   .catch(async (err) => {
     puppeteer.close();
-    console.log(await config.help());
-    console.log('\n  ---\n\n  Processing Errors:\n');
     printErrors(err);
     process.exit(1);
   });

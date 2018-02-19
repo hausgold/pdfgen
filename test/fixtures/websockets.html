@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        display: flex;
+        font-family: 'Raleway', sans-serif;
+        height: 100vh;
+        justify-content: center;
+        text-align: center;
+      }
+      h1 {
+        padding-right: 1em;
+      }
+    </style>
+    <script language="javascript" type="text/javascript">
+      setTimeout(function() {
+        websocket = new WebSocket('ws://echo.websocket.org/');
+        send = function(e) {
+          websocket.send(JSON.stringify({
+            h1: 'Very delay.',
+            p: 'Much Socket. So Echo.'
+          }));
+        };
+
+        websocket.onopen = send;
+        websocket.onmessage = function(e) {
+          data = JSON.parse(e.data);
+          document.querySelector('h1').innerHTML = data.h1;
+          document.querySelector('p').innerHTML = data.p;
+        };
+
+        setInterval(send, 300);
+      }, 1300);
+    </script>
+  </head>
+  <body>
+    <h1></h1>
+    <p></p>
+  </body>
+</html>
