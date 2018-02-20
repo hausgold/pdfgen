@@ -1,3 +1,7 @@
+### 1.2.0
+
+* Upgraded to puppeteer 1.1.0 (1.0.0 previous)
+
 ### 1.1.0
 
 * Upgraded to puppeteer 1.0.0 (0.10.2 previous)
