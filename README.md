@@ -1,4 +1,4 @@
-![pdfgen](doc/assets/project.png)
+![pdfgen](doc/assets/project.svg)
 
 [![Build Status][travis-badge]][travis-url]
 [![Code Climate][codeclimate-badge]][codeclimate-url]
