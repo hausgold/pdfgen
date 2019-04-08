@@ -145,25 +145,19 @@ Suite.exitCode = (command) => {
 // When the images are fully equal the error percentage will be zero.
 Suite.comparePdfWithPng = (pdf, png) => {
   // Generate a temporary file name for the pdf in question
-  let random = Math.floor(Suite.randomFloat(1000, 30000));
-  let actual = Suite.root(`test/tmp/image-${random}.png`);
+  let actual = pdf.replace(/\.pdf$/, '.png');
+  let pdf2png = Suite.root(`exe/pdf2png`);
+  let imgdiff = Suite.root(`exe/imgdiff`);
 
   // Convert PDF file to PNG first
-  execSync(`convert \
-    -define profile:skip=ICC \
-    -density 150 ${pdf} \
-    -quality 100 +append ${actual}`);
+  execSync(`${pdf2png} "${pdf}" "${actual}"`);
 
   // Calculate the rmse error percentage
-  let output = Suite.capture(`compare -metric rmse \
-    ${actual} ${png} /dev/null`);
+  let output = Suite.capture(`${imgdiff} "${actual}" "${png}"`);
 
-  // ~~Delete the PDF image~~
-  // Keep the PDF image for error analysis
-  // unlinkSync(actual);
+  // Log out the diffrence for debugging
+  console.log(`          \u001B[90m⇒ ${output}% diffrence\u001B[0m`);
 
-  // Parse the error percentage
-  output = output.toString().trim().match(/\(([0-9.]+)\)/);
-  output = null === output ? '1' : output[1];
-  return parseFloat(output) * 100;
+  // Parse the diffrence percentage
+  return parseFloat(output);
 };

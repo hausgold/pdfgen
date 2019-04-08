@@ -180,10 +180,10 @@ conduct](./CODE_OF_CONDUCT.md).
 
 [travis-badge]: https://travis-ci.org/hausgold/pdfgen.svg?branch=master
 [travis-url]: https://travis-ci.org/hausgold/pdfgen
-[codeclimate-badge]: https://codeclimate.com/github/hausgold/pdfgen/badges/gpa.svg
-[codeclimate-url]: https://codeclimate.com/github/hausgold/pdfgen
-[coverage-badge]: https://codeclimate.com/github/hausgold/pdfgen/badges/coverage.svg
-[coverage-url]: https://codeclimate.com/github/hausgold/pdfgen/coverage
+[codeclimate-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/maintainability
+[codeclimate-url]: https://codeclimate.com/repos/5cac828cd22ced774c00568c/maintainability
+[coverage-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/test_coverage
+[coverage-url]: https://codeclimate.com/repos/5cac828cd22ced774c00568c/test_coverage
 [npm-version-badge]: https://img.shields.io/npm/v/pdfgen.svg
 [npm-downloads-badge]: https://img.shields.io/npm/dm/pdfgen.svg
 [npm-url]: https://www.npmjs.com/package/pdfgen

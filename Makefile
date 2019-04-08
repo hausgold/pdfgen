@@ -9,16 +9,18 @@ SHELL := bash
 COVERAGE_DIR ?= coverage
 DOC_DIR ?= doc/api
 TMP_DIR ?= test/tmp
+BIN_DIR ?= bin
+EXE_DIR ?= exe
 VENDOR_DIR ?= node_modules
 
-CONVERT ?= convert
 JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
 MKDIR ?= mkdir
 NODE ?= node
 BASH ?= bash
 COMPOSE ?= docker-compose
 NPM ?= npm
-PDFGEN ?= bin/pdfgen
+PDFGEN ?= $(BIN_DIR)/pdfgen
+PDF2PNG ?= $(EXE_DIR)/pdf2png
 RM ?= rm
 
 HTML_FILES := $(wildcard test/fixtures/*.html)
@@ -47,6 +49,7 @@ clean: clean-test-results
 clean-test-results:
 	# Clean test results
 	@$(RM) -rf $(TMP_DIR) $(COVERAGE_DIR)
+	@$(MKDIR) -p $(TMP_DIR) $(COVERAGE_DIR)
 
 distclean: clean
 	# Same as clean and cleans dependencies
@@ -63,7 +66,6 @@ docs: clean
 
 test-specs: clean-test-results
 	# Check the application specifications
-	@$(MKDIR) -p $(TMP_DIR) $(COVERAGE_DIR)
 	@$(NPM) run test
 	@$(NPM) run coverage
 
@@ -107,12 +109,9 @@ png:
 	# Generate PNG files from all PDF files
 	@$(foreach PDF_FILE,$(PDF_FILES),\
 		echo "# > Convert $(PDF_FILE) to PNG file"; \
-		$(CONVERT) \
-			-define profile:skip=ICC \
-			-density 150 \
-			$(shell pwd)/$(PDF_FILE) \
-			-quality 100 +append \
-			$(shell pwd)/$(patsubst %.pdf,%.png,$(PDF_FILE));)
+		$(PDF2PNG) \
+			"$(shell pwd)/$(PDF_FILE)" \
+			"$(shell pwd)/$(patsubst %.pdf,%.png,$(PDF_FILE))";)
 
 fixtures: pdf png
 update-pdf-images: fixtures
