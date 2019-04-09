@@ -49,6 +49,7 @@ describe('Config', function() {
       ['network-timeout' , '1500'     , 1500       , 'delay']                  ,
       ['delay'           , '1500'     , 1500       , 'delay']                  ,
       ['media'           , 'print'    , 'print'    , 'media']                  ,
+      ['header'          , 'a:b'      , {a: 'b'}   , 'headers']                ,
       ['landscape'       , 'true'     , true       , 'pdf.landscape']          ,
       ['header-footer'   , 'false'    , false      , 'pdf.displayHeaderFooter'],
       ['background'      , 'true'     , true       , 'pdf.printBackground']    ,
@@ -87,7 +88,8 @@ describe('Config', function() {
         it('sets the correct value on the config hash', async () => {
           const config = new Config([...argv, '--' +  option, valid]);
           await config.parse();
-          expect(eval('config.hash.' + path)).to.be(expected);
+          let check = (typeof expected == 'object') ? 'eql' : 'be';
+          expect(eval('config.hash.' + path)).to[check](expected);
         });
       });
     });

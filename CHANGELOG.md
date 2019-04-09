@@ -1,3 +1,8 @@
+### 1.3.0
+
+* Upgraded to puppeteer 1.14.0 (1.1.0 previous)
+* Added the --header option to set additional headers for the main request
+
 ### 1.2.0
 
 * Upgraded to puppeteer 1.1.0 (1.0.0 previous)

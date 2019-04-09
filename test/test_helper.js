@@ -161,3 +161,17 @@ Suite.comparePdfWithPng = (pdf, png) => {
   // Parse the diffrence percentage
   return parseFloat(output);
 };
+
+// Start the test server (header echo).
+Suite.startTestServer = () => {
+  Suite.testServerHandle = spawn(Suite.root('exe/test-server'), [], {
+    shell: false,
+    detached: false,
+    stdio: 'ignore'
+  });
+};
+
+// Stop the test server.
+Suite.stopTestServer = () => {
+  Suite.testServerHandle.kill('SIGKILL');
+};

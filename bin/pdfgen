@@ -53,6 +53,26 @@ config.parse()
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
+    // Handle additional headers
+    if (Object.keys(hash.headers).length) {
+      // Enable request interception
+      await page.setRequestInterception(true);
+
+      // Add header for the navigation requests
+      page.on('request', request => {
+        // Do nothing in case of non-navigation requests
+        if (!request.isNavigationRequest()) {
+          return request.continue();
+        }
+
+        // Merge the regular request headers with the user given ones
+        let headers = Object.assign({}, request.headers(), hash.headers);
+
+        // Add the new headers for the request
+        request.continue({ headers });
+      });
+    }
+
     // Open the given URL
     await page.goto(hash.url, {
       timeout: hash.timeout,

@@ -82,7 +82,7 @@ describe('pdfgen Binary', function() {
         let pdf = outputDest(flavor);
         let png = Suite.fixture(flavor + '.png');
 
-        beforeEach(() => {
+        before(() => {
           Suite.capture(`${binary} ${url} ${pdf}`);
         });
 
@@ -103,7 +103,7 @@ describe('pdfgen Binary', function() {
       let pdf = outputDest('circles');
       let png = Suite.fixture('templates/circles.png');
 
-      beforeEach(() => {
+      before(() => {
         Suite.capture(`${binary} ${url} ${pdf} \
           --margin-top 2cm \
           --margin-bottom 2cm \
@@ -122,6 +122,33 @@ describe('pdfgen Binary', function() {
       it('produces the expected PDF file (1% tolerance)', () => {
         expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
       });
+    });
+  });
+
+  describe('file generation (headers)', () => {
+    let url = 'http://localhost:3000';
+    let pdf = outputDest('headers');
+    let png = Suite.fixture('headers.png');
+
+    before((done) => {
+      Suite.startTestServer();
+      setTimeout(() => {
+        Suite.capture(`${binary} \
+          --header 'Authorization: Granted!' \
+          -a 'X-Test:true' \
+          --header 'custom:   header' \
+          ${url} ${pdf}`);
+        done();
+      }, 300);
+    });
+    after(() => Suite.stopTestServer());
+
+    it('generates a PDF file', () => {
+      expect(existsSync(pdf)).to.be(true);
+    });
+
+    it('produces the expected PDF file (1% tolerance)', () => {
+      expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
     });
   });
 });

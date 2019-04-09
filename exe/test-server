@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+var http = require('http');
+var ignoreHeaders = [
+  'host', 'accept', 'user-agent', 'pragma', 'cache-control',
+  'upgrade-insecure-requests', 'accept-encoding', 'connection',
+  'accept-language'
+];
+var page = (content) => {
+  return `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,
+          initial-scale=1, shrink-to-fit=no">
+    <title>Test Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway"
+          rel="stylesheet">
+    <style>
+      @media screen, print {
+        html, body {
+          margin: 0;
+          padding: 0;
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          font-family: 'Raleway', sans-serif;
+          height: 100vh;
+          justify-content: center;
+          text-align: center;
+        }
+        h1 {
+          font-size: 1.5em;
+        }
+      }
+    </style>
+  </head>
+  <body>${content}</body>
+</html>
+  `;
+};
+
+http.createServer(function (req, res) {
+  var headers = Object.keys(req.headers).reduce((memo, key) => {
+    if (ignoreHeaders.includes(key)) { return memo; }
+    memo.push([key, req.headers[key]]);
+    return memo;
+  }, []);
+
+  console.log('> Request');
+
+  if (headers.length) {
+    var output = headers.map((elem) =>
+      `${elem.shift()}: ${elem.pop()}`).join("\n");
+
+    console.log(`  > ${output.split("\n").join(', ')}`);
+    res.write(page(`<h1>${output.split("\n").join('</h1><h1>')}</h1>`));
+  } else {
+    console.log(`  > no headers`);
+    res.write(page('<h1>Test!</h1>'));
+  }
+
+  res.end();
+}).listen(3000);

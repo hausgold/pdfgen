@@ -46,7 +46,7 @@ before_script:
 script:
   - compare --version
   - pdftoppm -v
-  - travis_retry time make test
+  - time make test
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
