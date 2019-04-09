@@ -10,11 +10,16 @@ describe('pdfgen Binary', function() {
   let validUrl = 'file://' + Suite.fixture('simple.html');
   let validUrlBrokenHtml = 'file://' + Suite.fixture('broken.html');
   let invalidUrl = 'http://broken.tld';
-  let validDest = '/tmp/test.pdf';
+  let outputDest = (filename) => {
+    if (!filename) { return Suite.root(`test/tmp/test.pdf`) }
+    return Suite.root(`test/tmp/${filename}.pdf`)
+  };
+  let pdf = outputDest();
   let cleanup = () => {
-    if (existsSync(validDest)) { unlinkSync(validDest); }
+    if (existsSync(pdf)) { unlinkSync(pdf); }
   };
 
+  // Comment when recording new comparison fixtures
   beforeEach(cleanup);
   afterEach(cleanup);
 
@@ -58,7 +63,7 @@ describe('pdfgen Binary', function() {
 
     context('url', () => {
       it('prints errors on invalid URLs', () => {
-        expect(Suite.capture(binary + ` ${invalidUrl} ${validDest}`))
+        expect(Suite.capture(binary + ` ${invalidUrl} ${pdf}`))
           .to.match(/ERR_CONNECTION_REFUSED|ERR_NAME_NOT_RESOLVED/)
       });
     });
@@ -74,18 +79,19 @@ describe('pdfgen Binary', function() {
     ].forEach((flavor) => {
       context(`${flavor} HTML`, () => {
         let url = 'file://' + Suite.fixture(flavor + '.html');
+        let pdf = outputDest(flavor);
         let png = Suite.fixture(flavor + '.png');
 
         beforeEach(() => {
-          Suite.capture(`${binary} ${url} ${validDest}`);
+          Suite.capture(`${binary} ${url} ${pdf}`);
         });
 
         it('generates a PDF file', () => {
-          expect(existsSync(validDest)).to.be(true);
+          expect(existsSync(pdf)).to.be(true);
         });
 
         it('produces the expected PDF file (1% tolerance)', () => {
-          expect(Suite.comparePdfWithPng(validDest, png)).to.be.lessThan(1);
+          expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
         });
       });
     });
@@ -94,10 +100,11 @@ describe('pdfgen Binary', function() {
   describe('file generation (templates)', () => {
     context('circles HTML', () => {
       let url = 'file://' + Suite.fixture('templates/circles.html');
+      let pdf = outputDest('circles');
       let png = Suite.fixture('templates/circles.png');
 
       beforeEach(() => {
-        Suite.capture(`${binary} ${url} ${validDest} \
+        Suite.capture(`${binary} ${url} ${pdf} \
           --margin-top 2cm \
           --margin-bottom 2cm \
           --header-footer true \
@@ -109,11 +116,11 @@ describe('pdfgen Binary', function() {
       });
 
       it('generates a PDF file', () => {
-        expect(existsSync(validDest)).to.be(true);
+        expect(existsSync(pdf)).to.be(true);
       });
 
       it('produces the expected PDF file (1% tolerance)', () => {
-        expect(Suite.comparePdfWithPng(validDest, png)).to.be.lessThan(1);
+        expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
       });
     });
   });

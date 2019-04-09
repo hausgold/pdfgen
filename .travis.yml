@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - 'node'
+  - 11
+  - 10
   - 9
   - 8
   - 7
@@ -11,7 +12,7 @@ addons:
     # a lot for the headless mode, but at the moment required. Maybe Google
     # provides a fully static build for headless mode in the future.
     packages: ['make', 'curl', 'ghostscript', 'ca-certificates',
-               'fonts-liberation', 'gconf-service', 'ghostscript',
+               'gconf-service', 'ghostscript', 'xdg-utils',
                'libappindicator1', 'libasound2', 'libasound2-dev',
                'libatk1.0-0', 'libc6', 'libcairo2', 'libcups2', 'libdbus-1-3',
                'libexpat1', 'libfontconfig1', 'libgcc1', 'libgconf-2-4',
@@ -21,11 +22,13 @@ addons:
                'libx11-xcb1', 'libxcb1', 'libxcomposite1', 'libxcursor1',
                'libxdamage1', 'libxext6', 'libxfixes3', 'libxi6', 'libxrandr2',
                'libxrender1', 'libxss1', 'libxtst6', 'lsb-release', 'wget',
-               'xdg-utils']
+               'fonts-liberation', 'fonts-ipafont-gothic', 'fonts-wqy-zenhei',
+               'fonts-thai-tlwg', 'fonts-kacst', 'ttf-freefont',
+               'poppler-utils']
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=f5c237ee39a68816042573dff0a8cd95fbbf014dea3e944ee948e0708e6f1bc2
+    - CC_TEST_REPORTER_ID=a705c3bd58b0aac45fbe32e66be7beb2b829217721b1dd361c9f09149c0ac552
     - MAKE_ENV=baremetal
     - SIDEKIQ_REDIS_URL=''
 
@@ -33,8 +36,7 @@ cache:
   directories:
     - node_modules
 
-install:
-  - time make install
+install: time make install
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -42,7 +44,9 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
+  - compare --version
+  - pdftoppm -v
   - travis_retry time make test
 
 after_script:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

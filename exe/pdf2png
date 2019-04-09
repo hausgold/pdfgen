@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ -z "${1}" ]; then
+  echo 'No input PDF path given.'
+  exit 1
+fi
+
+if [ -z "${2}" ]; then
+  echo 'No output PNG path given.'
+  exit 1
+fi
+
+TMP=$(mktemp -d)
+PDF="${1}"
+PNG="${2}"
+
+pdftoppm -r 150 -png "${PDF}" ${TMP}/file
+convert +append ${TMP}/* "${PNG}"
+
+rm -rf "${TMP}"

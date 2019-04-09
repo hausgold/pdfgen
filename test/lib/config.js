@@ -46,8 +46,8 @@ describe('Config', function() {
     [
       // option          , valid      , expected   , config path
       ['timeout'         , '30000'    , 30000      , 'timeout']                ,
-      ['network-timeout' , '1000'     , 1000       , 'delay']                  ,
-      ['delay'           , '1000'     , 1000       , 'delay']                  ,
+      ['network-timeout' , '1500'     , 1500       , 'delay']                  ,
+      ['delay'           , '1500'     , 1500       , 'delay']                  ,
       ['media'           , 'print'    , 'print'    , 'media']                  ,
       ['landscape'       , 'true'     , true       , 'pdf.landscape']          ,
       ['header-footer'   , 'false'    , false      , 'pdf.displayHeaderFooter'],
