@@ -89,6 +89,7 @@ Option | Description
 **-E, --margin-left**     | Left margin, accepts values labeled with units.
 **-p, --header-template** | HTML template for the print header.
 **-P, --footer-template** | HTML template for the print footer.
+**-a, --header**          | Additional HTTP header (eg. `X-Custom: true`)
 
 ### Units options
 
@@ -178,8 +179,8 @@ Everyone interacting in the pdfgen project’s codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
 conduct](./CODE_OF_CONDUCT.md).
 
-[travis-badge]: https://travis-ci.org/hausgold/pdfgen.svg?branch=master
-[travis-url]: https://travis-ci.org/hausgold/pdfgen
+[travis-badge]: https://travis-ci.com/hausgold/pdfgen.svg?branch=master
+[travis-url]: https://travis-ci.com/hausgold/pdfgen
 [codeclimate-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/maintainability
 [codeclimate-url]: https://codeclimate.com/repos/5cac828cd22ced774c00568c/maintainability
 [coverage-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/test_coverage

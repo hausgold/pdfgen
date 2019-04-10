@@ -13,19 +13,21 @@ BIN_DIR ?= bin
 EXE_DIR ?= exe
 VENDOR_DIR ?= node_modules
 
-JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
-MKDIR ?= mkdir
-NODE ?= node
 BASH ?= bash
 COMPOSE ?= docker-compose
+JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
+KILL ?= kill
+MKDIR ?= mkdir
+NODE ?= node
 NPM ?= npm
-PDFGEN ?= $(BIN_DIR)/pdfgen
 PDF2PNG ?= $(EXE_DIR)/pdf2png
+PDFGEN ?= $(BIN_DIR)/pdfgen
 RM ?= rm
+SLEEP ?= sleep
+TEST_SERVER ?= $(EXE_DIR)/test-server
 
 HTML_FILES := $(wildcard test/fixtures/*.html)
-PDF_FILES := $(shell find test/fixtures/ -name '*.html' \
-	| sed 's/html$$/pdf/g')
+PDF_FILES := $(shell find test/fixtures/ -name '*.pdf')
 
 all:
 	# PDF Generator (pdfgen)
@@ -79,7 +81,8 @@ shell:
 
 pdf: \
 	pdf-defaults \
-	pdf-templates
+	pdf-templates \
+	pdf-headers
 
 pdf-defaults:
 	# Generate all PDF files with default settings
@@ -104,6 +107,18 @@ pdf-templates:
 			'$(shell cat test/fixtures/templates/circles.header)' \
 		--footer-template \
 			'$(shell cat test/fixtures/templates/circles.footer)'
+
+pdf-headers:
+	# Generate a PDF with help of the header echo test server
+	@$(TEST_SERVER) & \
+		$(SLEEP) .3; \
+		$(PDFGEN) \
+			--header 'Authorization: Granted!' \
+			-a 'X-Test:true' \
+			--header 'custom:   header' \
+			http://localhost:3000 \
+			$(abspath test/fixtures/headers.pdf); \
+		$(KILL) %-;
 
 png:
 	# Generate PNG files from all PDF files
