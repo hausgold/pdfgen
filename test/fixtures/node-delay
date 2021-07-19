@@ -4,11 +4,14 @@
 // time and executes then the given command. With the help of
 // this you can simulate a spwaning process with a hard delay.
 //
-// @param {number} $1 The sleep delay
+// @param {number} $1 The sleep delay in seconds
 // @param {string} $2 The command (without shell)
 // @param {string[]} $3 The arguments for the command
 
-const sleep = require('sleep').sleep;
+const msleep = (n) => {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+const sleep = (n) => msleep(n * 1000);
 const spawn = require('child_process').spawn;
 const spawnSync = require('child_process').spawnSync;
 

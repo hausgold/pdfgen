@@ -33,7 +33,7 @@ Suite.propperProcessTimeout = (ctx) => {
 
 // Rescue puppeteer test case (close the browser)
 Suite.rescuePuppeteer = (puppeteer, done) => {
-  return (err) => { puppeteer.close('rescue'); done(err); };
+  return async (err) => { await puppeteer.close('rescue'); done(err); };
 };
 
 // Sleep process handling

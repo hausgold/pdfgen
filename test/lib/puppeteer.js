@@ -53,8 +53,8 @@ describe('Puppeteer Wrapper', function() {
         .then(async (browser) => {
           expect(existsSync(this.puppeteer.userDataDir)).to.be(true);
         })
-        .then(() => {
-          this.puppeteer.close();
+        .then(async () => {
+          await this.puppeteer.close();
           expect(existsSync(this.puppeteer.userDataDir)).to.be(false);
         })
         .then(done)

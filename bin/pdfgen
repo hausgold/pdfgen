@@ -80,7 +80,7 @@ config.parse()
     });
 
     // Set the given media type
-    await page.emulateMedia(hash.media);
+    await page.emulateMediaType(hash.media);
 
     return {hash, page};
   })
@@ -91,11 +91,11 @@ config.parse()
   // Generate the PDF file and close Chromium
   .then(async ({hash, page}) => {
     await page.pdf(hash.pdf);
-    puppeteer.close();
+    await puppeteer.close();
   })
   // Handle any processing errors
   .catch(async (err) => {
-    puppeteer.close();
+    await puppeteer.close();
     printErrors(err);
     process.exit(1);
   });

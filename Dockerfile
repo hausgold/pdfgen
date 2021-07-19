@@ -1,11 +1,7 @@
-FROM node:8
+FROM node:14-buster
 MAINTAINER Hermann Mayer <hermann.mayer@hausgold.de>
 
-# Add stretch backports repository
-RUN echo 'deb http://ftp.debian.org/debian stretch-backports main' \
-  >> /etc/apt/sources.list
-
-# Install system packages and the ruby bundless
+# Install system packages
 RUN apt-get update -yqqq && \
   apt-get install -y \
     build-essential locales sudo vim libicu-dev \
@@ -18,7 +14,7 @@ RUN apt-get update -yqqq && \
     libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils poppler-utils \
     fonts-liberation fonts-ipafont-gothic fonts-wqy-zenhei \
-    fonts-thai-tlwg fonts-kacst ttf-freefont && \
+    fonts-thai-tlwg fonts-kacst fonts-freefont-ttf && \
   echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && /usr/sbin/locale-gen
 
 # Set the root password and grant root access to shell

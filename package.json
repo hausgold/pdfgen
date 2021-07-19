@@ -6,7 +6,6 @@
     "pdfgen": "./bin/pdfgen"
   },
   "scripts": {
-    "install": "./exe/fix-local-chrome-permissions",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=lcov"
   },
@@ -19,16 +18,15 @@
   "author": "Hermann Mayer <hermann.mayer@hausgold.de>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.20.0",
+    "commander": "^8.0.0",
     "millis": "^2.2.2",
-    "mkdirp": "^0.5.1",
-    "puppeteer": "~1.14.0"
+    "mkdirp": "^1.0.4",
+    "puppeteer": "~10.1.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "jsdoc": "^3.5.5",
-    "mocha": "^6.1.1",
-    "nyc": "^13.3.0",
-    "sleep": "^6.0.0"
+    "jsdoc": "^3.6.7",
+    "mocha": "^9.0.2",
+    "nyc": "^15.1.0"
   }
 }

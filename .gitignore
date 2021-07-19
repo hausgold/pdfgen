@@ -4,3 +4,4 @@ cc-test-reporter
 node_modules
 doc/api
 tmp
+out.pdf

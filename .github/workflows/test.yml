@@ -1,0 +1,50 @@
+name: Test
+on:
+  push:
+    branches:
+      - '**'
+  schedule:
+    - cron: '0 0 * * MON'
+
+concurrency:
+  group: '${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: 'Test the npm package (Node.js ${{ matrix.nodejs }})'
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        nodejs: [14, 16]
+    steps:
+      - name: Prepare the virtual environment
+        uses: hausgold/actions/ci@master
+        with:
+          clone_token: '${{ secrets.CLONE_TOKEN }}'
+          settings: '${{ github.repository }}'
+          target: ci/noop
+      - uses: actions/checkout@v2
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Install the correct Node.js version
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.nodejs }}
+          cache: 'npm'
+
+      - name: Install the npm package dependencies
+        run: make install
+
+      - name: Run the npm package tests
+        run: make test
+
+      - name: Generate statistics
+        run: fe-stats
+
+      - name: Upload the code coverage report
+        run: coverage

@@ -1,10 +1,10 @@
 ![pdfgen](doc/assets/project.svg)
 
-[![Build Status][travis-badge]][travis-url]
-[![Code Climate][codeclimate-badge]][codeclimate-url]
-[![Coverage Status][coverage-badge]][coverage-url]
-[![npm version][npm-version-badge]][npm-url]
-[![npm downloads][npm-downloads-badge]][npm-url]
+[![Continuous Integration](https://github.com/hausgold/pdfgen/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hausgold/pdfgen/actions/workflows/test.yml)
+[![npm Version](https://img.shields.io/npm/v/pdfgen.svg)](https://www.npmjs.com/package/pdfgen)
+[![Test Coverage](https://automate-api.hausgold.de/v1/coverage_reports/pdfgen/coverage.svg)](https://knowledge.hausgold.de/coverage)
+[![Test Ratio](https://automate-api.hausgold.de/v1/coverage_reports/pdfgen/ratio.svg)](https://knowledge.hausgold.de/coverage)
+[![API docs](https://automate-api.hausgold.de/v1/coverage_reports/pdfgen/documentation.svg)](https://www.npmjs.com/package/pdfgen)
 
 This tool is dedicated to the generation of a PDF file from a given URL in a
 highly customizable manner. It makes use of the [Google Puppeteer
@@ -178,13 +178,3 @@ License](http://opensource.org/licenses/MIT).
 Everyone interacting in the pdfgen project’s codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
 conduct](./CODE_OF_CONDUCT.md).
-
-[travis-badge]: https://travis-ci.com/hausgold/pdfgen.svg?branch=master
-[travis-url]: https://travis-ci.com/hausgold/pdfgen
-[codeclimate-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/maintainability
-[codeclimate-url]: https://codeclimate.com/repos/5cac828cd22ced774c00568c/maintainability
-[coverage-badge]: https://api.codeclimate.com/v1/badges/063f6af8323b314f4ba1/test_coverage
-[coverage-url]: https://codeclimate.com/repos/5cac828cd22ced774c00568c/test_coverage
-[npm-version-badge]: https://img.shields.io/npm/v/pdfgen.svg
-[npm-downloads-badge]: https://img.shields.io/npm/dm/pdfgen.svg
-[npm-url]: https://www.npmjs.com/package/pdfgen

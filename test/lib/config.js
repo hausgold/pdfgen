@@ -16,16 +16,16 @@ describe('Config', function() {
     });
 
     context('<URL> argument', () => {
-      it('requires both <URL> and <DEST>', async () => {
-        const config = new Config([...argv, 'url', 'dest']);
+      it('requires only the <URL> argument', async () => {
+        const config = new Config([...argv, 'url']);
         await config.parse();
         expect(this.processExitCalled).to.be(false);
       });
 
-      it('dies on only <URL>', async () => {
-        const config = new Config([...argv, 'url']);
+      it('does not die without arguments', async () => {
+        const config = new Config([...argv]);
         await config.parse();
-        expect(this.processExitCalled).to.be(true);
+        expect(this.processExitCalled).to.be(false);
       });
 
       it('sets the correct value on the config hash', async () => {
