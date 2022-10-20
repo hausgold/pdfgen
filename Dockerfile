@@ -1,4 +1,4 @@
-FROM node:14-buster
+FROM node:16
 MAINTAINER Hermann Mayer <hermann.mayer@hausgold.de>
 
 # Install system packages
