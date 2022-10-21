@@ -22,7 +22,7 @@
     </style>
     <script language="javascript" type="text/javascript">
       setTimeout(function() {
-        websocket = new WebSocket('ws://echo.websocket.org/');
+        websocket = new WebSocket('wss://ws.ifelse.io/');
         send = function(e) {
           websocket.send(JSON.stringify({
             h1: 'Very delay.',
@@ -32,9 +32,13 @@
 
         websocket.onopen = send;
         websocket.onmessage = function(e) {
-          data = JSON.parse(e.data);
-          document.querySelector('h1').innerHTML = data.h1;
-          document.querySelector('p').innerHTML = data.p;
+          try {
+            data = JSON.parse(e.data);
+            document.querySelector('h1').innerHTML = data.h1;
+            document.querySelector('p').innerHTML = data.p;
+          } catch {
+            console.log(`Received non-JSON message: ${e.data}`);
+          }
         };
 
         setInterval(send, 300);
