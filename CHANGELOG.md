@@ -1,4 +1,4 @@
-### next
+### 1.4.0
 
 * Upgraded to puppeteer 10.1.0 (1.14.0 previous)
 * Upgraded from Node.js 8-11 to 14 and 16 (14 is the new minimum)
