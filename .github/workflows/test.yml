@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        nodejs: [14, 16]
+        nodejs: [16, 18]
     steps:
       - name: Prepare the virtual environment
         uses: hausgold/actions/ci@master
