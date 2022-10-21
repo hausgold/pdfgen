@@ -1,3 +1,8 @@
+### next
+
+* Upgraded to puppeteer 19.0.0 (10.1.0 previous)
+* Upgraded from Node.js 14-16 to 16 and 18 (16 is the new minimum)
+
 ### 1.4.1
 
 * No code updates, just updated the readme/docs

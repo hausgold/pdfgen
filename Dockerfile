@@ -14,7 +14,8 @@ RUN apt-get update -yqqq && \
     libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils poppler-utils \
     fonts-liberation fonts-ipafont-gothic fonts-wqy-zenhei \
-    fonts-thai-tlwg fonts-kacst fonts-freefont-ttf && \
+    fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
+    libdrm-dev libgbm-dev libxshmfence1 && \
   echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && /usr/sbin/locale-gen
 
 # Set the root password and grant root access to shell

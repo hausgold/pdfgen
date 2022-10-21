@@ -13,8 +13,11 @@ BIN_DIR ?= bin
 EXE_DIR ?= exe
 VENDOR_DIR ?= node_modules
 
+AWK ?= awk
 BASH ?= bash
 COMPOSE ?= docker-compose
+DOCKER ?= docker
+GREP ?= grep
 JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
 KILL ?= kill
 MKDIR ?= mkdir
@@ -25,6 +28,7 @@ PDFGEN ?= $(BIN_DIR)/pdfgen
 RM ?= rm
 SLEEP ?= sleep
 TEST_SERVER ?= $(EXE_DIR)/test-server
+XARGS ?= xargs
 
 HTML_FILES := $(wildcard test/fixtures/*.html)
 PDF_FILES := $(shell find test/fixtures/ -name '*.pdf')
@@ -53,7 +57,17 @@ clean-test-results:
 	@$(RM) -rf $(TMP_DIR) $(COVERAGE_DIR)
 	@$(MKDIR) -p $(TMP_DIR) $(COVERAGE_DIR)
 
-distclean: clean
+clean-containers:
+	# Clean running containers
+	@$(COMPOSE) down
+
+clean-images:
+	# Clean build images
+	@-$(DOCKER) images | $(GREP) pdfgen \
+		| $(AWK) '{ print $$3 }' \
+		| $(XARGS) -rn1 $(DOCKER) rmi -f
+
+distclean: clean clean-containers clean-images
 	# Same as clean and cleans dependencies
 	@$(RM) -rf $(VENDOR_DIR)
 

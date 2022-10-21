@@ -8,7 +8,7 @@
 
 This tool is dedicated to the generation of a PDF file from a given URL in a
 highly customizable manner. It makes use of the [Google Puppeteer
-API](https://github.com/GoogleChrome/puppeteer/) to utilize Chromium to fulfill
+API](https://github.com/puppeteer/puppeteer) to utilize Chromium to fulfill
 the task. It also ships some website examples which provide tips on how to
 design the pages to be printable.
 
@@ -38,7 +38,7 @@ which are supported by
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) (>=7)
+* [Node.js](https://nodejs.org) (>=16)
 * [GNU Make (development)](https://www.gnu.org/software/make/) (>=4.2.1)
 
 ## Getting started
