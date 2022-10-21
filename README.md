@@ -1,4 +1,4 @@
-![pdfgen](doc/assets/project.svg)
+![pdfgen](https://raw.githubusercontent.com/hausgold/pdfgen/master/doc/assets/project.svg)
 
 [![Continuous Integration](https://github.com/hausgold/pdfgen/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hausgold/pdfgen/actions/workflows/test.yml)
 [![npm Version](https://img.shields.io/npm/v/pdfgen.svg)](https://www.npmjs.com/package/pdfgen)

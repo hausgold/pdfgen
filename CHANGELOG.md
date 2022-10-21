@@ -1,3 +1,7 @@
+### 1.4.1
+
+* No code updates, just updated the readme/docs
+
 ### 1.4.0
 
 * Upgraded to puppeteer 10.1.0 (1.14.0 previous)
