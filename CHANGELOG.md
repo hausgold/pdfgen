@@ -1,3 +1,8 @@
+### 1.5.1
+
+* When no format is given, but a height/width the format A4 is nonetheless
+  given to Puppeteer - corrected this faulty behaviour
+
 ### 1.5.0
 
 * Upgraded to puppeteer 19.0.0 (10.1.0 previous)
