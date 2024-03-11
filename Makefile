@@ -33,6 +33,9 @@ XARGS ?= xargs
 HTML_FILES := $(wildcard test/fixtures/*.html)
 PDF_FILES := $(shell find test/fixtures/ -name '*.pdf')
 
+FORCE_COLOR ?= true
+export FORCE_COLOR
+
 all:
 	# PDF Generator (pdfgen)
 	#
@@ -130,7 +133,7 @@ pdf-headers:
 			--header 'Authorization: Granted!' \
 			-a 'X-Test:true' \
 			--header 'custom:   header' \
-			http://localhost:3000 \
+			http://localhost:3823 \
 			$(abspath test/fixtures/headers.pdf); \
 		$(KILL) %-;
 

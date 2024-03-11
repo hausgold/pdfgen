@@ -4,7 +4,7 @@
 set -eo pipefail
 
 # Config
-URL='http://localhost:3000'
+URL='http://localhost:3823'
 
 # Error handler
 function on_error()

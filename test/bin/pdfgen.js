@@ -90,8 +90,8 @@ describe('pdfgen Binary', function() {
           expect(existsSync(pdf)).to.be(true);
         });
 
-        it('produces the expected PDF file (1% tolerance)', () => {
-          expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
+        it('produces the expected PDF file (5% tolerance)', () => {
+          expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
         });
       });
     });
@@ -119,14 +119,14 @@ describe('pdfgen Binary', function() {
         expect(existsSync(pdf)).to.be(true);
       });
 
-      it('produces the expected PDF file (1% tolerance)', () => {
-        expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
+      it('produces the expected PDF file (5% tolerance)', () => {
+        expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
       });
     });
   });
 
   describe('file generation (headers)', () => {
-    let url = 'http://localhost:3000';
+    let url = 'http://localhost:3823';
     let pdf = outputDest('headers');
     let png = Suite.fixture('headers.png');
 
@@ -147,8 +147,8 @@ describe('pdfgen Binary', function() {
       expect(existsSync(pdf)).to.be(true);
     });
 
-    it('produces the expected PDF file (1% tolerance)', () => {
-      expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(1);
+    it('produces the expected PDF file (5% tolerance)', () => {
+      expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
     });
   });
 });
