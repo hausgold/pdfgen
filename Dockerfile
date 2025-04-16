@@ -1,5 +1,5 @@
 FROM node:16
-MAINTAINER Hermann Mayer <hermann.mayer@hausgold.de>
+LABEL org.opencontainers.image.authors="containers@hausgold.de"
 
 # Install system packages
 RUN apt-get update -yqqq && \
