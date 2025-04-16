@@ -38,7 +38,7 @@ which are supported by
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) (>=16)
+* [Node.js](https://nodejs.org) (>=20)
 * [GNU Make (development)](https://www.gnu.org/software/make/) (>=4.2.1)
 
 ## Getting started

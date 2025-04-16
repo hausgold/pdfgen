@@ -1,3 +1,7 @@
+### next
+
+* Upgraded from Node.js 16-18 to 20 and 22 (20 is the new minimum)
+
 ### 1.5.1
 
 * When no format is given, but a height/width the format A4 is nonetheless
