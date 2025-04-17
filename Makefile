@@ -17,6 +17,7 @@ AWK ?= awk
 BASH ?= bash
 COMPOSE ?= docker-compose
 DOCKER ?= docker
+GIT ?= git
 GREP ?= grep
 JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
 KILL ?= kill
@@ -43,6 +44,7 @@ all:
 	#
 	# docs             Generate the application documentation
 	# shell            Start an interactive shell session
+	# release            Release a new Gem version (maintainers only)
 	#
 	# clean            Clean all runtime data
 	# distclean        Same as clean and cleans dependencies
@@ -147,3 +149,8 @@ png:
 
 fixtures: pdf png
 update-pdf-images: fixtures
+
+release:
+	# Release a new package version
+	@$(NPM) publish
+	@$(GIT) push

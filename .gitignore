@@ -6,3 +6,4 @@ node_modules
 doc/api
 tmp
 out.pdf
+log

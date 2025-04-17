@@ -1,0 +1,57 @@
+name: Release
+run-name: Release ${{ github.event.inputs.VERSION }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: The new version to release. (eg. `1.0.0`) Check the
+          changelog for the latest version.
+
+concurrency:
+  group: '${{ github.event.inputs.VERSION }}'
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    name: Release the gem
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+          rubygems: '3.4.22'
+
+      - name: Prepare the virtual environment
+        uses: hausgold/actions/ci@master
+        with:
+          clone_token: '${{ secrets.CLONE_TOKEN }}'
+          settings_secret_key: '${{ secrets.SETTINGS_SECRET_KEY }}'
+          settings: '${{ github.repository }}'
+          target: ci/noop
+
+      - name: Switch to SSH remotes for the Git repository
+        run: git-ssh-remotes
+
+      - name: Reconfigure NPM settings
+        run: npm-auth-token-from-env
+
+      - name: Enforce version '${{ github.event.inputs.VERSION }}'
+        run: set-npm-package-version '${{ github.event.inputs.VERSION }}'
+
+      - name: Prepare the Git release commit
+        run: git-release-commit '${{ github.event.inputs.VERSION }}'
+
+      - name: Push the release Git commit/tag and package to the registry
+        run: make release
+
+      - name: Build and upload application documentation
+        run: api-docs && coverage --docs-only
+        env:
+          WORKFLOW_DISPATCH_TOKEN: '${{ secrets.WORKFLOW_DISPATCH_TOKEN }}'
+          GITHUB_TAG: 'v${{ github.event.inputs.VERSION }}'

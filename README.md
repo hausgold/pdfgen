@@ -24,6 +24,7 @@ design the pages to be printable.
 - [Contributing](#contributing)
 - [License](#license)
 - [Code of Conduct](#code-of-conduct)
+- [Releasing](#releasing)
 
 ## Why another PDF generation tool?
 
@@ -178,3 +179,12 @@ License](http://opensource.org/licenses/MIT).
 Everyone interacting in the pdfgen project’s codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
 conduct](./CODE_OF_CONDUCT.md).
+
+## Releasing
+
+The release process of this Gem is fully automated. You just need to open the
+Github Actions [Release
+Workflow](https://github.com/hausgold/alarmable/actions/workflows/release.yml)
+and trigger a new run via the **Run workflow** button. Insert the new version
+number (check the [changelog](./CHANGELOG.md) first for the latest release) and
+you're done.
