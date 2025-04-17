@@ -39,7 +39,7 @@ jobs:
         run: git-ssh-remotes
 
       - name: Reconfigure NPM settings
-        run: npm-auth-token-from-env
+        run: npm-auth-token-from-env ~/.npmrc
 
       - name: Enforce version '${{ github.event.inputs.VERSION }}'
         run: set-npm-package-version '${{ github.event.inputs.VERSION }}'

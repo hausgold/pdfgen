@@ -44,7 +44,7 @@ all:
 	#
 	# docs             Generate the application documentation
 	# shell            Start an interactive shell session
-	# release            Release a new Gem version (maintainers only)
+	# release          Release a new Gem version (maintainers only)
 	#
 	# clean            Clean all runtime data
 	# distclean        Same as clean and cleans dependencies
