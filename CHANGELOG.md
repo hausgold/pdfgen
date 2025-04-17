@@ -1,5 +1,9 @@
 ### next
 
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.5.2 (17 April 2025)
+
 * Upgraded from Node.js 16-18 to 20 and 22 (20 is the new minimum)
 
 ### 1.5.1
