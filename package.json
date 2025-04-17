@@ -21,7 +21,7 @@
     "commander": "^9.4.1",
     "millis": "^2.2.2",
     "mkdirp": "^1.0.4",
-    "puppeteer": "~19.0.0"
+    "puppeteer": "~24.6.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
