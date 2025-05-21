@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Added missing Git tag creation to the Makefile
 
 ### 1.5.4 (21 May 2025)
 

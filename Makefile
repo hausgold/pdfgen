@@ -15,10 +15,12 @@ VENDOR_DIR ?= node_modules
 
 AWK ?= awk
 BASH ?= bash
+CAT ?= cat
 COMPOSE ?= docker-compose
 DOCKER ?= docker
 GIT ?= git
 GREP ?= grep
+JQ ?= jq
 JSDOC ?= $(VENDOR_DIR)/.bin/jsdoc
 KILL ?= kill
 MKDIR ?= mkdir
@@ -152,5 +154,7 @@ update-pdf-images: fixtures
 
 release:
 	# Release a new package version
+	@$(eval VERSION=$(shell $(CAT) package.json | $(JQ) -r '.version'))
+	@$(GIT) tag -a -m "Version ${VERSION}" "v${VERSION}" || true
 	@$(NPM) publish
-	@$(GIT) push
+	@$(GIT) push --all
