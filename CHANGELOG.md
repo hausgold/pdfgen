@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Just a retag of 1.5.3
 
 ### 1.5.3 (17 April 2025)
 
