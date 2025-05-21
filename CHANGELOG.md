@@ -1,5 +1,9 @@
 ### next
 
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.5.5 (21 May 2025)
+
 * Added missing Git tag creation to the Makefile
 
 ### 1.5.4 (21 May 2025)
