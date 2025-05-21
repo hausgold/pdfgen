@@ -153,8 +153,9 @@ fixtures: pdf png
 update-pdf-images: fixtures
 
 release:
-	# Release a new package version
 	@$(eval VERSION=$(shell $(CAT) package.json | $(JQ) -r '.version'))
-	@$(GIT) tag -a -m "Version ${VERSION}" "v${VERSION}" || true
+	# Release a new package version (${VERSION})
+	@$(GIT) tag -a -m "Version ${VERSION}" "v${VERSION}"
 	@$(NPM) publish
-	@$(GIT) push --all
+	@$(GIT) push
+	@$(GIT) push --tags
