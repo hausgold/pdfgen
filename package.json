@@ -1,6 +1,6 @@
 {
   "name": "pdfgen",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Generate a PDF from a given URL",
   "bin": {
     "pdfgen": "./bin/pdfgen"
