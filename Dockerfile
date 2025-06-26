@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:22
 LABEL org.opencontainers.image.authors="containers@hausgold.de"
 
 # Install system packages
