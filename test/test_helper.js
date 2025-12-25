@@ -42,9 +42,9 @@ let sleepIncrement = 0.0001;
 let sleepId = sleepSeed + 0.1597;
 let sleepPids = [];
 
-// Spwan a new sleep command
+// Spawn a new sleep command
 Suite.spwanSleep = () => {
-  // Incremet the sleep seed to avoid conflicts
+  // Increment the sleep seed to avoid conflicts
   sleepId += sleepIncrement;
 
   // Start a new sleep process, fully detached and forked
@@ -64,9 +64,9 @@ Suite.spwanSleep = () => {
   return handle;
 };
 
-// Spwan a new sleepy, but do it later
+// Spawn a new sleepy, but do it later
 Suite.spwanSleepLater = (delay = 2) => {
-  // Incremet the sleep seed to avoid conflicts
+  // Increment the sleep seed to avoid conflicts
   sleepId += sleepIncrement;
 
   // Start a new sleep process, fully detached and forked
@@ -155,10 +155,10 @@ Suite.comparePdfWithPng = (pdf, png) => {
   // Calculate the rmse error percentage
   let output = Suite.capture(`${imgdiff} "${actual}" "${png}"`);
 
-  // Log out the diffrence for debugging
-  console.log(`          \u001B[90m⇒ ${output}% diffrence\u001B[0m`);
+  // Log out the difference for debugging
+  console.log(`          \u001B[90m⇒ ${output}% difference\u001B[0m`);
 
-  // Parse the diffrence percentage
+  // Parse the difference percentage
   return parseFloat(output);
 };
 

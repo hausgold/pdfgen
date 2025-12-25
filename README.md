@@ -30,7 +30,7 @@ design the pages to be printable.
 
 If you are into typesetting/[LaTeX](https://www.latex-project.org/) or tools
 like [wkhtmltopdf](https://wkhtmltopdf.org/) you know they can be hard to
-manage by web devs or are not intented to be simple at usage. This is
+manage by web devs or are not intended to be simple at usage. This is
 especially worse when it comes to dynamic content like user customizable info
 papers. pdfgen allows you to easily make use of the latest web technologies
 which are supported by
@@ -65,7 +65,7 @@ $ pdfgen 'http://google.com' google.pdf
 
 As the getting started section demonstrated, the usage of the pdfgen utility is
 straightforward. It just requires two arguments, the URL and the destination of
-the resulting PDF file. But thats not all. You can customize the resulting PDF
+the resulting PDF file. But that's not all. You can customize the resulting PDF
 as well as the website which is visited. Here comes a complete list of
 supported commandline options:
 
