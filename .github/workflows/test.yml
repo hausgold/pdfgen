@@ -20,20 +20,19 @@ jobs:
       matrix:
         nodejs: [22, 24]
     steps:
-      - name: Prepare the virtual environment
-        uses: hausgold/actions/ci@master
+      - name: Prepare the environment
+        uses: hausgold/actions/ci@v2
         with:
           clone_token: '${{ secrets.CLONE_TOKEN }}'
           settings_secret_key: '${{ secrets.SETTINGS_SECRET_KEY }}'
           settings: '${{ github.repository }}'
           target: ci/noop
-      - uses: actions/checkout@v4
 
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
       - name: Install the correct Node.js version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.nodejs }}
           cache: 'npm'
