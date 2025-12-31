@@ -1,6 +1,10 @@
 ### next
 
-* Migrated to hausgold/actions@v2 (#28)
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.6.0 (31 December 2025)
+
+* Migrated to hausgold/actions@v2 ([#28](https://github.com/hausgold/pdfgen/pull/28))
 
 ### 1.5.6 (21 May 2025)
 
