@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Upgraded to Ubuntu 24.04 on Github Actions (#29)
 
 ### 1.6.0 (31 December 2025)
 
