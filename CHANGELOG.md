@@ -1,6 +1,10 @@
 ### next
 
-* Upgraded to Ubuntu 24.04 on Github Actions (#29)
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.6.1 (2 January 2026)
+
+* Upgraded to Ubuntu 24.04 on Github Actions ([#29](https://github.com/hausgold/pdfgen/pull/29))
 
 ### 1.6.0 (31 December 2025)
 
