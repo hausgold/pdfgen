@@ -13,7 +13,7 @@ concurrency:
 jobs:
   test:
     name: 'Test the npm package (Node.js ${{ matrix.nodejs }})'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     strategy:
       fail-fast: false
