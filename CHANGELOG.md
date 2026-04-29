@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Upgraded to node.js 25 (#30)
 
 ### 1.6.1 (2 January 2026)
 
