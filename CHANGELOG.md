@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Updated the readme (updated the required node.js version)
 
 ### 1.7.0 (29 April 2026)
 
