@@ -39,7 +39,7 @@ which are supported by
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) (>=20)
+* [Node.js](https://nodejs.org) (>=22)
 * [GNU Make (development)](https://www.gnu.org/software/make/) (>=4.2.1)
 
 ## Getting started
