@@ -1,6 +1,10 @@
 ### next
 
-* Upgraded to node.js 25 (#30)
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.7.0 (29 April 2026)
+
+* Upgraded to node.js 25 ([#30](https://github.com/hausgold/pdfgen/pull/30))
 
 ### 1.6.1 (2 January 2026)
 
