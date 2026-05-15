@@ -10,9 +10,38 @@ if [ -z "${2}" ]; then
   exit 1
 fi
 
-DIFF=$(compare -metric rmse "${1}" "${2}" /dev/null 2>&1 \
-  | cut -d '(' -f2 \
-  | tr -d ')')
+ACTUAL="${1}"
+EXPECTED="${2}"
+DIFF_OUT="${3}"
+
+if [ -n "${DIFF_OUT}" ]; then
+  # When a debug diff image path is given, emit a side-by-side composite
+  # of the actual, expected, and a red-highlighted pixel diff. The compare
+  # command exits non-zero whenever the images differ, hence the trailing
+  # `|| true` to keep the script flowing while still capturing the metric.
+  TMP=$(mktemp -d)
+  HIGHLIGHT="${TMP}/highlight.png"
+
+  DIFF=$(compare -metric rmse "${ACTUAL}" "${EXPECTED}" "${HIGHLIGHT}" 2>&1 \
+    | cut -d '(' -f2 \
+    | tr -d ')')
+
+  montage \
+    -label 'actual'   "${ACTUAL}" \
+    -label 'expected' "${EXPECTED}" \
+    -label 'diff'     "${HIGHLIGHT}" \
+    -tile 3x1 \
+    -geometry '+8+8' \
+    -background '#222222' \
+    -fill '#ffffff' \
+    "${DIFF_OUT}" >/dev/null 2>&1
+
+  rm -rf "${TMP}"
+else
+  DIFF=$(compare -metric rmse "${ACTUAL}" "${EXPECTED}" /dev/null 2>&1 \
+    | cut -d '(' -f2 \
+    | tr -d ')')
+fi
 
 DIFF=$(perl -e "print ${DIFF} * 100")
 

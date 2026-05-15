@@ -18,15 +18,15 @@
   "author": "Hermann Mayer <hermann.mayer@hausgold.de>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^9.4.1",
+    "commander": "^14.0.3",
     "millis": "^2.2.2",
-    "mkdirp": "^1.0.4",
-    "puppeteer": "~19.0.0"
+    "mkdirp": "^3.0.1",
+    "puppeteer": "^25.0.2"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "jsdoc": "^3.6.7",
-    "mocha": "^10.1.0",
-    "nyc": "^15.1.0"
+    "jsdoc": "^4.0.5",
+    "mocha": "^11.7.5",
+    "nyc": "^18.0.0"
   }
 }

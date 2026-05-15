@@ -26,12 +26,11 @@ jobs:
           settings: '${{ github.repository }}'
           target: ci/noop
 
-      - name: Install Ruby 3.4
-        uses: ruby/setup-ruby@v1
+      - name: Install the correct Node.js version
+        uses: actions/setup-node@v6
         with:
-          ruby-version: 3.4
-          bundler-cache: true
-          rubygems: '3.6.9'
+          node-version: 25
+          cache: 'npm'
 
       - name: Switch to SSH remotes for the Git repository
         run: git-ssh-remotes

@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        nodejs: [24, 25]
+        nodejs: [25, 26]
     steps:
       - name: Prepare the environment
         uses: hausgold/actions/ci@v2
@@ -29,7 +29,8 @@ jobs:
           target: ci/noop
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y
+          poppler-utils imagemagick ghostscript
 
       - name: Install the correct Node.js version
         uses: actions/setup-node@v6
@@ -42,6 +43,14 @@ jobs:
 
       - name: Run the npm package tests
         run: make test
+
+      - name: Upload the archive with debugging information
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: 'pdfgen-${{ github.sha }}'
+          path: test/tmp
+          retention-days: 7
 
       - name: Generate statistics
         run: fe-stats

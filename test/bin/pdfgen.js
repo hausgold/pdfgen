@@ -91,7 +91,7 @@ describe('pdfgen Binary', function() {
         });
 
         it('produces the expected PDF file (5% tolerance)', () => {
-          expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
+          Suite.expectPdfToMatchPng(pdf, png, 5);
         });
       });
     });
@@ -120,7 +120,7 @@ describe('pdfgen Binary', function() {
       });
 
       it('produces the expected PDF file (5% tolerance)', () => {
-        expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
+        Suite.expectPdfToMatchPng(pdf, png, 5);
       });
     });
   });
@@ -148,7 +148,7 @@ describe('pdfgen Binary', function() {
     });
 
     it('produces the expected PDF file (5% tolerance)', () => {
-      expect(Suite.comparePdfWithPng(pdf, png)).to.be.lessThan(5);
+      Suite.expectPdfToMatchPng(pdf, png, 5);
     });
   });
 });
