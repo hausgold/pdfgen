@@ -143,23 +143,50 @@ Suite.exitCode = (command) => {
 
 // This function delivers the rmse error percentage.
 // When the images are fully equal the error percentage will be zero.
+// A side-by-side debug image (actual | expected | highlight) is written
+// next to the converted PNG so failing comparisons can be inspected.
 Suite.comparePdfWithPng = (pdf, png) => {
   // Generate a temporary file name for the pdf in question
   let actual = pdf.replace(/\.pdf$/, '.png');
+  let diff = pdf.replace(/\.pdf$/, '.diff.png');
   let pdf2png = Suite.root(`exe/pdf2png`);
   let imgdiff = Suite.root(`exe/imgdiff`);
 
   // Convert PDF file to PNG first
   execSync(`${pdf2png} "${pdf}" "${actual}"`);
 
-  // Calculate the rmse error percentage
-  let output = Suite.capture(`${imgdiff} "${actual}" "${png}"`);
+  // Calculate the rmse error percentage and emit a visual diff image
+  let output = Suite.capture(`${imgdiff} "${actual}" "${png}" "${diff}"`);
 
   // Log out the difference for debugging
   console.log(`          \u001B[90m⇒ ${output}% difference\u001B[0m`);
 
-  // Parse the difference percentage
-  return parseFloat(output);
+  // Hand back the raw result alongside the artifact paths so callers
+  // can surface them on failure.
+  return { percentage: parseFloat(output), diff, actual, expected: png };
+};
+
+// Assert the rendered PDF visually matches the expected PNG within the
+// given tolerance. On mismatch the thrown error embeds the path of the
+// side-by-side debug image so the failure is inspectable.
+Suite.expectPdfToMatchPng = (pdf, png, tolerance) => {
+  let result = Suite.comparePdfWithPng(pdf, png);
+
+  if (!(result.percentage < tolerance)) {
+    let err = new Error(
+      `expected ${result.percentage} to be below ${tolerance}\n` +
+      `          actual:   ${result.actual}\n` +
+      `          expected: ${result.expected}\n` +
+      `          diff:     ${result.diff}`
+    );
+    err.actual = result.actual;
+    err.expected = result.expected;
+    err.diff = result.diff;
+    err.percentage = result.percentage;
+    throw err;
+  }
+
+  return result;
 };
 
 // Start the test server (header echo).
