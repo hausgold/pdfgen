@@ -1,7 +1,11 @@
 ### next
 
-* Upgraded to node.js >=25 (#31)
-* Upgraded to puppeteer >=25 (#31)
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 1.8.0 (15 May 2026)
+
+* Upgraded to node.js >=25 ([#31](https://github.com/hausgold/pdfgen/pull/31))
+* Upgraded to puppeteer >=25 ([#31](https://github.com/hausgold/pdfgen/pull/31))
 
 ### 1.7.1 (5 May 2026)
 
