@@ -1,6 +1,7 @@
 ### next
 
 * Upgraded to node.js >=25 (#31)
+* Upgraded to puppeteer >=25 (#31)
 
 ### 1.7.1 (5 May 2026)
 
