@@ -29,7 +29,8 @@ jobs:
           target: ci/noop
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y
+          poppler-utils imagemagick ghostscript
 
       - name: Install the correct Node.js version
         uses: actions/setup-node@v6
