@@ -70,9 +70,11 @@ clean-containers:
 
 clean-images:
 	# Clean build images
-	@-$(DOCKER) images | $(GREP) pdfgen \
-		| $(AWK) '{ print $$3 }' \
-		| $(XARGS) -rn1 $(DOCKER) rmi -f
+	@$(DOCKER) images --format '{{.ID}} {{.Repository}}:{{.Tag}}' \
+		| $(GREP) $(shell basename "`pwd`") \
+		| $(AWK) '{ print $$0 }' \
+		| $(XARGS) -P4 -rn1 $(DOCKER) rmi -f \
+		| $(GREP) -vP 'cannot be forced|invalid reference' || true
 
 distclean: clean clean-containers clean-images
 	# Same as clean and cleans dependencies
