@@ -1,6 +1,6 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Corrected the make clean-images recipe
 
 ### 1.8.0 (15 May 2026)
 
