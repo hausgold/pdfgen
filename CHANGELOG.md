@@ -9,14 +9,14 @@
 * Migrated the example test page from node-sass to sass and upgraded its
   dependencies ([#33](https://github.com/hausgold/pdfgen/pull/33))
 * Removed the deprecated `--network-timeout` option, which had no effect
-  anymore - use `--delay` instead
+  anymore - use `--delay` instead ([#34](https://github.com/hausgold/pdfgen/pull/34))
 * Corrected `--scale` to accept fractions (eg. `0.5`), and `--range` to accept
-  lists of pages (eg. `1-5, 8`)
+  lists of pages (eg. `1-5, 8`) ([#34](https://github.com/hausgold/pdfgen/pull/34))
 * Corrected the validation of `--timeout`, `--delay` and `--header` values
-  (invalid values are rejected with a proper error message now)
+  (invalid values are rejected with a proper error message now) ([#34](https://github.com/hausgold/pdfgen/pull/34))
 * Corrected the usage information (`--help`), some description lines were
-  missing
-* Reduced the published package to the runtime files
+  missing ([#34](https://github.com/hausgold/pdfgen/pull/34))
+* Reduced the published package to the runtime files ([#34](https://github.com/hausgold/pdfgen/pull/34))
 
 ### 1.8.1 (20 May 2026)
 
