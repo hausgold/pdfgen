@@ -1,5 +1,9 @@
 ### next
 
+* TODO: Replace this bullet point with an actual description of a change.
+
+### 2.0.0 (12 November 2026)
+
 * Upgraded to puppeteer >=25.17 (Chrome 157) ([#32](https://github.com/hausgold/pdfgen/pull/32))
 * Upgraded to commander >=15 ([#32](https://github.com/hausgold/pdfgen/pull/32))
 * Upgraded to mocha >=12 ([#32](https://github.com/hausgold/pdfgen/pull/32))
