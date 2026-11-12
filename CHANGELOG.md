@@ -1,13 +1,22 @@
 ### next
 
-* Upgraded to puppeteer >=25.17 (Chrome 157)
-* Upgraded to commander >=15
-* Upgraded to mocha >=12
-* Removed the unused millis and mkdirp dependencies
+* Upgraded to puppeteer >=25.17 (Chrome 157) ([#32](https://github.com/hausgold/pdfgen/pull/32))
+* Upgraded to commander >=15 ([#32](https://github.com/hausgold/pdfgen/pull/32))
+* Upgraded to mocha >=12 ([#32](https://github.com/hausgold/pdfgen/pull/32))
+* Removed the unused millis and mkdirp dependencies ([#32](https://github.com/hausgold/pdfgen/pull/32))
 * Allowed the puppeteer install script (Chromium download) for npm versions
-  which block dependency install scripts by default
+  which block dependency install scripts by default ([#32](https://github.com/hausgold/pdfgen/pull/32))
 * Migrated the example test page from node-sass to sass and upgraded its
-  dependencies
+  dependencies ([#33](https://github.com/hausgold/pdfgen/pull/33))
+* Removed the deprecated `--network-timeout` option, which had no effect
+  anymore - use `--delay` instead
+* Corrected `--scale` to accept fractions (eg. `0.5`), and `--range` to accept
+  lists of pages (eg. `1-5, 8`)
+* Corrected the validation of `--timeout`, `--delay` and `--header` values
+  (invalid values are rejected with a proper error message now)
+* Corrected the usage information (`--help`), some description lines were
+  missing
+* Reduced the published package to the runtime files
 
 ### 1.8.1 (20 May 2026)
 

@@ -54,7 +54,6 @@ describe('Config', function() {
     [
       // option          , valid      , expected   , config path
       ['timeout'         , '30000'    , 30000      , 'timeout']                ,
-      ['network-timeout' , '1500'     , 1500       , 'delay']                  ,
       ['delay'           , '1500'     , 1500       , 'delay']                  ,
       ['media'           , 'print'    , 'print'    , 'media']                  ,
       ['header'          , 'a:b'      , {a: 'b'}   , 'headers']                ,
@@ -219,6 +218,64 @@ describe('Config', function() {
       });
     });
 
+    context('equals sign notation', () => {
+      it('sets the correct value on the config hash', async () => {
+        expect((await parse('--width=10cm')).pdf.width).to.be('10cm');
+      });
+
+      it('drops the default format for --width=10cm', async () => {
+        expect((await parse('--width=10cm')).pdf).not.to.have.key('format');
+      });
+    });
+
+    context('numeric options', () => {
+      [
+        // option  , valid  , expected , config path
+        ['scale'   , '0.5'  , 0.5      , 'pdf.scale'] ,
+        ['scale'   , '.5'   , 0.5      , 'pdf.scale'] ,
+        ['scale'   , '2'    , 2        , 'pdf.scale'] ,
+        ['timeout' , '0'    , 0        , 'timeout']   ,
+        ['delay'   , '0'    , 0        , 'delay']     ,
+      ].forEach(([option, valid, expected, path]) => {
+        it(`sets ${path} to ${expected} for --${option} ${valid}`, async () => {
+          expect(dig(await parse(`--${option}`, valid), path)).to.be(expected);
+        });
+      });
+
+      [
+        // option  , invalid
+        ['scale'   , '1.5x']  ,
+        ['scale'   , '1.']    ,
+        ['scale'   , 'x2']    ,
+        ['timeout' , 'x100']  ,
+        ['timeout' , '100ms'] ,
+        ['timeout' , '1.5']   ,
+        ['delay'   , 'x100']  ,
+        ['delay'   , '100ms'] ,
+      ].forEach(([option, invalid]) => {
+        it(`rejects --${option} ${invalid}`, async () => {
+          const errors = await parse(`--${option}`, invalid)
+            .catch((err) => err);
+          expect(errors.shift().message).to.contain(`--${option}`);
+        });
+      });
+    });
+
+    context('page ranges', () => {
+      ['1', '1-5', '5-', '1-5, 8', '1-5,8', '1, 3, 5-7'].forEach((valid) => {
+        it(`accepts --range "${valid}"`, async () => {
+          expect((await parse('--range', valid)).pdf.pageRanges).to.be(valid);
+        });
+      });
+
+      ['x', '1-5-8', '1-5;8', '1-5,', ', 8', '1 5'].forEach((invalid) => {
+        it(`rejects --range "${invalid}"`, async () => {
+          const errors = await parse('--range', invalid).catch((err) => err);
+          expect(errors.shift().message).to.contain('--range');
+        });
+      });
+    });
+
     context('margins', () => {
       it('applies --margin to all sides', async () => {
         expect((await parse('--margin', '1cm')).pdf.margin).to.eql({
@@ -245,6 +302,26 @@ describe('Config', function() {
       it('keeps colons within the header value', async () => {
         const hash = await parse('--header', 'Referer:http://localhost:80');
         expect(hash.headers).to.eql({Referer: 'http://localhost:80'});
+      });
+
+      it('accepts all token characters within the header name', async () => {
+        const hash = await parse('--header', 'X-Custom_1.a~b:c');
+        expect(hash.headers).to.eql({'X-Custom_1.a~b': 'c'});
+      });
+
+      [
+        // flavor                    , invalid
+        ['a missing name'            , ':b']         ,
+        ['a missing value'           , 'a:']         ,
+        ['whitespace in the name'    , 'a b:c']      ,
+        ['a line break in the name'  , 'a\nb:c']     ,
+        ['a line break in the value' , 'a:b\nc:d']   ,
+        ['a carriage return'         , 'a:b\r\nc:d'] ,
+      ].forEach(([flavor, invalid]) => {
+        it(`rejects headers with ${flavor}`, async () => {
+          const errors = await parse('--header', invalid).catch((err) => err);
+          expect(errors.shift().message).to.contain('--header');
+        });
       });
 
       it('rejects with all errors on multiple invalid headers', async () => {
@@ -301,6 +378,19 @@ describe('Config', function() {
 
     it('lists the help option just once', () => {
       expect(help.match(/-h, --help/g)).to.have.length(1);
+    });
+
+    it('names the binary within the usage line', () => {
+      expect(help).to.contain('Usage: pdfgen [options]');
+    });
+
+    it('keeps repeated description lines of the options', () => {
+      expect(help.match(/accepts values labeled with\s+units\./g))
+        .to.have.length(7);
+    });
+
+    it('does not list the removed --network-timeout option', () => {
+      expect(help).not.to.contain('--network-timeout');
     });
 
     it('includes the units', () => {
