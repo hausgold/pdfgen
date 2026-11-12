@@ -6,6 +6,10 @@ var ignoreHeaders = [
   'upgrade-insecure-requests', 'accept-encoding', 'connection',
   'accept-language'
 ];
+// The headers with this prefix are set by the browser itself (client
+// hints, fetch metadata) and their values change with each Chromium
+// release, eg. the browser version within sec-ch-ua
+var ignorePrefix = 'sec-';
 var page = (content) => {
   return `
 <!DOCTYPE html>
@@ -43,7 +47,9 @@ var page = (content) => {
 
 http.createServer(function (req, res) {
   var headers = Object.keys(req.headers).reduce((memo, key) => {
-    if (ignoreHeaders.includes(key)) { return memo; }
+    if (ignoreHeaders.includes(key) || key.startsWith(ignorePrefix)) {
+      return memo;
+    }
     memo.push([key, req.headers[key]]);
     return memo;
   }, []);
