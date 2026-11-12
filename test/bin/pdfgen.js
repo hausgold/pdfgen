@@ -66,6 +66,46 @@ describe('pdfgen Binary', function() {
         expect(Suite.capture(binary + ` ${invalidUrl} ${pdf}`))
           .to.match(/ERR_CONNECTION_REFUSED|ERR_NAME_NOT_RESOLVED/)
       });
+
+      it('exits with one on invalid URLs', () => {
+        expect(Suite.exitCode(binary + ` ${invalidUrl} ${pdf}`)).to.be(1);
+      });
+
+      it('generates no PDF file on invalid URLs', () => {
+        Suite.capture(binary + ` ${invalidUrl} ${pdf}`);
+        expect(existsSync(pdf)).to.be(false);
+      });
+    });
+
+    context('options', () => {
+      let invalid = `${binary} --media wrong ${validUrl} ${pdf}`;
+      let unknown = `${binary} --unknown ${validUrl} ${pdf}`;
+      let excess = `${binary} ${validUrl} ${pdf} excess`;
+
+      it('prints the possible values on invalid option values', () => {
+        expect(Suite.capture(invalid))
+          .to.match(/--media - possible values: print, screen/);
+      });
+
+      it('exits with one on invalid option values', () => {
+        expect(Suite.exitCode(invalid)).to.be(1);
+      });
+
+      it('prints errors on unknown options', () => {
+        expect(Suite.capture(unknown)).to.match(/unknown option '--unknown'/);
+      });
+
+      it('exits with one on unknown options', () => {
+        expect(Suite.exitCode(unknown)).to.be(1);
+      });
+
+      it('prints errors on too many arguments', () => {
+        expect(Suite.capture(excess)).to.match(/too many arguments/);
+      });
+
+      it('exits with one on too many arguments', () => {
+        expect(Suite.exitCode(excess)).to.be(1);
+      });
     });
   });
 
@@ -121,6 +161,60 @@ describe('pdfgen Binary', function() {
 
       it('produces the expected PDF file (5% tolerance)', () => {
         Suite.expectPdfToMatchPng(pdf, png, 5);
+      });
+    });
+  });
+
+  describe('file generation (paper)', () => {
+    // The tolerance of the page sizes in points, because Chromium snaps
+    // the paper dimensions to its own units
+    let tolerance = 3;
+
+    [
+      // flavor     , options                      , width , height
+      ['default'    , ''                           , 595   , 842]   ,
+      ['format'     , '--format A5'                , 420   , 595]   ,
+      ['landscape'  , '--landscape true'           , 842   , 595]   ,
+      ['dimensions' , '--width 10cm --height 20cm' , 283   , 567]   ,
+      ['width'      , '--width 10cm'               , 283   , 792]   ,
+    ].forEach(([flavor, options, width, height]) => {
+      context(`${flavor} paper (${options || 'no options'})`, () => {
+        let url = 'file://' + Suite.fixture('simple.html');
+        let pdf = outputDest(`paper-${flavor}`);
+
+        before(() => {
+          Suite.capture(`${binary} --delay 0 ${options} ${url} ${pdf}`);
+        });
+
+        it(`produces a page width of about ${width}pt`, () => {
+          expect(Suite.pdfPages(pdf).shift().width)
+            .to.be.within(width - tolerance, width + tolerance);
+        });
+
+        it(`produces a page height of about ${height}pt`, () => {
+          expect(Suite.pdfPages(pdf).shift().height)
+            .to.be.within(height - tolerance, height + tolerance);
+        });
+      });
+    });
+
+    [
+      // flavor     , options       , pages
+      ['all pages'  , ''            , 2] ,
+      ['first page' , '--range 1'   , 1] ,
+      ['page range' , '--range 1-2' , 2] ,
+    ].forEach(([flavor, options, pages]) => {
+      context(`${flavor} (${options || 'no options'})`, () => {
+        let url = 'file://' + Suite.fixture('multipage.html');
+        let pdf = outputDest(`paper-${flavor.replace(' ', '-')}`);
+
+        before(() => {
+          Suite.capture(`${binary} --delay 0 ${options} ${url} ${pdf}`);
+        });
+
+        it(`produces ${pages} page(s)`, () => {
+          expect(Suite.pdfPages(pdf)).to.have.length(pages);
+        });
       });
     });
   });

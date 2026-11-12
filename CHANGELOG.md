@@ -1,6 +1,11 @@
 ### next
 
-* TODO: Replace this bullet point with an actual description of a change.
+* Upgraded to puppeteer >=25.17 (Chrome 157)
+* Upgraded to commander >=15
+* Upgraded to mocha >=12
+* Removed the unused millis and mkdirp dependencies
+* Allowed the puppeteer install script (Chromium download) for npm versions
+  which block dependency install scripts by default
 
 ### 1.8.1 (20 May 2026)
 

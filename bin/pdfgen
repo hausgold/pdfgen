@@ -3,7 +3,6 @@
 const config = new (require('../lib/config'))(process.argv);
 const puppeteer = new (require('../lib/puppeteer'));
 const meta = require('../package.json');
-const seconds = require('millis/seconds');
 
 /**
  * Print given errors. This function can handle a

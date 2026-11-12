@@ -53,8 +53,17 @@ $ npm install -g pdfgen
 ```
 
 NPM will take care of the installation of the dependencies, including the
-Puppeteer API plus the Chromium build for your machine. All you need to do now
-is to use it like this:
+Puppeteer API plus the Chromium build for your machine. Recent npm versions
+block the install scripts of dependencies by default, which skips the Chromium
+download. In this case you need to allow the Puppeteer install script
+explicitly:
+
+```bash
+# Install the pdfgen utility, including the Chromium build
+$ npm install -g --allow-scripts=puppeteer pdfgen
+```
+
+All you need to do now is to use it like this:
 
 ```bash
 # Generate a PDF from a URL

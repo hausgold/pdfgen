@@ -1,5 +1,4 @@
 const resolve = require('path').resolve;
-const seconds = require('millis/seconds');
 const spawn = require('child_process').spawn;
 const execSync = require('child_process').execSync;
 const spawnSync = require('child_process').spawnSync;
@@ -25,10 +24,10 @@ Suite.tree = processes.tree;
 Suite.children = processes.children;
 Suite.grepChildren = processes.grepChildren;
 
-// Set timeouts for a process launching tests
+// Set timeouts (in milliseconds) for a process launching tests
 Suite.propperProcessTimeout = (ctx) => {
-  ctx.timeout(seconds(30));
-  ctx.slow(seconds(4));
+  ctx.timeout(30000);
+  ctx.slow(4000);
 };
 
 // Rescue puppeteer test case (close the browser)
@@ -135,10 +134,24 @@ Suite.capture = (command) => {
   return output.toString().trim();
 };
 
-// Capture the return code of a command
+// Capture the return code of a command. The output of the command is
+// dropped, so failing commands do not clutter the test report.
 Suite.exitCode = (command) => {
-  try { execSync(command); } catch (e) { return e.status; }
+  try { execSync(command, { stdio: 'ignore' }); } catch (e) { return e.status; }
   return 0;
+};
+
+// Read the page sizes of a PDF file, in points (1/72 inch). Chromium
+// writes one uncompressed media box per page, so the pages can be read
+// straight from the file without any external tooling.
+Suite.pdfPages = (pdf) => {
+  let boxes = readFileSync(pdf).toString('latin1')
+    .match(/\/MediaBox\s*\[[^\]]*\]/g) || [];
+
+  return boxes.map((box) => {
+    let [left, bottom, right, top] = box.match(/-?[0-9.]+/g).map(parseFloat);
+    return { width: right - left, height: top - bottom };
+  });
 };
 
 // This function delivers the rmse error percentage.
