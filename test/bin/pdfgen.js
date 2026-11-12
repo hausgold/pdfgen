@@ -81,6 +81,7 @@ describe('pdfgen Binary', function() {
       let invalid = `${binary} --media wrong ${validUrl} ${pdf}`;
       let unknown = `${binary} --unknown ${validUrl} ${pdf}`;
       let excess = `${binary} ${validUrl} ${pdf} excess`;
+      let removed = `${binary} --network-timeout 100 ${validUrl} ${pdf}`;
 
       it('prints the possible values on invalid option values', () => {
         expect(Suite.capture(invalid))
@@ -97,6 +98,11 @@ describe('pdfgen Binary', function() {
 
       it('exits with one on unknown options', () => {
         expect(Suite.exitCode(unknown)).to.be(1);
+      });
+
+      it('prints errors on the removed --network-timeout option', () => {
+        expect(Suite.capture(removed))
+          .to.match(/unknown option '--network-timeout'/);
       });
 
       it('prints errors on too many arguments', () => {
@@ -199,10 +205,11 @@ describe('pdfgen Binary', function() {
     });
 
     [
-      // flavor     , options       , pages
-      ['all pages'  , ''            , 2] ,
-      ['first page' , '--range 1'   , 1] ,
-      ['page range' , '--range 1-2' , 2] ,
+      // flavor     , options          , pages
+      ['all pages'  , ''               , 2] ,
+      ['first page' , '--range 1'      , 1] ,
+      ['page range' , '--range 1-2'    , 2] ,
+      ['page list'  , "--range '1, 2'" , 2] ,
     ].forEach(([flavor, options, pages]) => {
       context(`${flavor} (${options || 'no options'})`, () => {
         let url = 'file://' + Suite.fixture('multipage.html');

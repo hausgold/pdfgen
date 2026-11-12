@@ -81,13 +81,12 @@ supported commandline options:
 Option | Description
 -------|------------
 **-T, --timeout**         | The maximum time to wait for the page to be loaded in ms. **30000**
-**-d, --delay**           | Wait for a given time after the page was opened in ms. **1000**
-**-t, --network-timeout** | Same as --delay, [deprecated] **1000**
-**-m, --media**           | Changes the CSS media type of the page. (page, print)
+**-d, --delay**           | Wait for a given time after the page was opened in ms. **1500**
+**-m, --media**           | Changes the CSS media type of the page. (print, screen)
 **-l, --landscape**       | Paper orientation. (**false**, true)
-**-h, --header-footer**   | Display header and footer. (**false**, true)
+**-D, --header-footer**   | Display header and footer. (**false**, true)
 **-b, --background**      | Print background graphics. (false, **true**)
-**-s, --scale**           | Scale of the webpage rendering. (**1**)
+**-s, --scale**           | Scale of the webpage rendering, e.g., "0.5". (**1**)
 **-r, --range**           | Paper ranges to print, e.g., "1-5, 8". (**prints all pages**)
 **-f, --format**          | Paper format. If set, takes priority over width or height options. (**A4**)
 **-w, --width**           | Paper width, accepts values labeled with units.
@@ -166,11 +165,6 @@ custom web fonts just like that.
 After checking out the repo, run `make install` to install dependencies. Then,
 run `make test` to run the tests.
 
-To release a new version, update the version number in
-[package.json](./package.json), commit this change, and finally create a git
-tag for the version. The release to [npmjs.com](https://www.npmjs.com/) must be
-done manually at the moment.
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
@@ -191,9 +185,9 @@ conduct](./CODE_OF_CONDUCT.md).
 
 ## Releasing
 
-The release process of this Gem is fully automated. You just need to open the
-Github Actions [Release
-Workflow](https://github.com/hausgold/alarmable/actions/workflows/release.yml)
+The release process of this package is fully automated. You just need to open
+the Github Actions [Release
+Workflow](https://github.com/hausgold/pdfgen/actions/workflows/release.yml)
 and trigger a new run via the **Run workflow** button. Insert the new version
 number (check the [changelog](./CHANGELOG.md) first for the latest release) and
 you're done.

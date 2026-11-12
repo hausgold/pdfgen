@@ -5,6 +5,13 @@
   "bin": {
     "pdfgen": "./bin/pdfgen"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=25"
+  },
   "scripts": {
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=lcov"
@@ -17,6 +24,14 @@
   ],
   "author": "Hermann Mayer <hermann.mayer@hausgold.de>",
   "license": "MIT",
+  "homepage": "https://github.com/hausgold/pdfgen#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hausgold/pdfgen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hausgold/pdfgen/issues"
+  },
   "dependencies": {
     "commander": "^15.1.0",
     "puppeteer": "^25.17.0"
