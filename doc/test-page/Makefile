@@ -6,19 +6,22 @@ SHELL := bash
 .SUFFIXES:
 .PHONY:
 
-VENDOR_DIR := node_modules
+# Directories
 DIST_DIR ?= dist
+VENDOR_DIR ?= node_modules
 
-NODE ?= node
-NPM ?= npm
+# Host binaries
+ECHO ?= echo
+EXIT ?= exit
 FIND ?= find
 MKDIR ?= mkdir
-TEST ?= test
+NODE ?= node
+NPM ?= npm
 PDFGEN ?= ../../bin/pdfgen
-CLEANCSS ?= $(VENDOR_DIR)/.bin/cleancss
-INLINE ?= $(NODE) bin/inline.js
-PUG ?= $(VENDOR_DIR)/.bin/pug
-SASS ?= $(VENDOR_DIR)/.bin/node-sass
+RENDER ?= $(NODE) bin/render.js
+RM ?= rm
+SASS ?= $(VENDOR_DIR)/.bin/sass
+TEST ?= test
 UGLIFYJS ?= $(VENDOR_DIR)/.bin/uglifyjs
 
 clean:
@@ -36,18 +39,13 @@ install:
 build: clean install
 	# Generate the test page
 	@$(MKDIR) -p $(DIST_DIR)
-	# > Compile pug to html files
-	@$(PUG) -s -o $(DIST_DIR) src/index.pug
-	# > Compile sass to css files
-	@$(SASS) -q -o $(DIST_DIR) src/index.scss
+	# > Compile sass to a minified css file (bundles normalize.css)
+	@$(SASS) --no-source-map --style=compressed --load-path=$(VENDOR_DIR) \
+		src/index.scss $(DIST_DIR)/index.css
 	# > Minify js files
 	@$(UGLIFYJS) -o $(DIST_DIR)/index.js src/index.js
-	# > Minify css fíles
-	@$(CLEANCSS) -o $(DIST_DIR)/normalize.css \
-		$(VENDOR_DIR)/normalize.css/normalize.css
-	@$(CLEANCSS) -o $(DIST_DIR)/index.css $(DIST_DIR)/index.css
-	# > Inline all assets
-	@$(INLINE) $(DIST_DIR)/index.html
+	# > Render pug to a html file (inlines the css and js files)
+	@$(RENDER) src/index.pug $(DIST_DIR)/index.html
 	# > Cleanup unneeded assets
 	@$(FIND) $(DIST_DIR) -type f -not -name "*.html" -exec $(RM) -f {} \;
 	# > Generate the PDF file
@@ -56,10 +54,10 @@ build: clean install
 check: build
 	# Check the generated test page
 	@$(TEST) -f $(DIST_DIR)/index.html \
-		|| (echo '# Generated test page was not found (html).'; exit 1)
+		|| ($(ECHO) '# Generated test page was not found (html).'; $(EXIT) 1)
 	# Generated test page ($(DIST_DIR)/index.html) was found. Yay.
 	@$(TEST) -f $(DIST_DIR)/test-page.pdf \
-		|| (echo '# Generated test page was not found (pdf).'; exit 1)
+		|| ($(ECHO) '# Generated test page was not found (pdf).'; $(EXIT) 1)
 	# Generated test page ($(DIST_DIR)/test-page.pdf) was found. Yay.
 
 all: check

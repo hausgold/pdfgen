@@ -1,18 +1,13 @@
 {
   "name": "test-page",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "postinstall": "npm rebuild node-sass",
-  "author": "",
-  "license": "ISC",
+  "description": "An example website to demonstrate the pdfgen utility",
+  "private": true,
+  "license": "MIT",
   "dependencies": {
-    "inline-resource": "^0.1.6",
-    "node-sass": "^4.5.3",
-    "normalize.css": "^7.0.0",
-    "pug-cli": "^1.0.0-alpha6"
+    "normalize.css": "^8.0.1",
+    "pug": "^3.0.4",
+    "sass": "^1.108.2",
+    "uglify-js": "^3.19.3"
   }
 }

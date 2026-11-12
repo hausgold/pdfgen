@@ -32,9 +32,10 @@ html
          content="width=device-width, initial-scale=1, shrink-to-fit=no")
     title PDF Generation Test Page
     link(href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text|Pacifico", rel="stylesheet")
-    link(href="normalize.css", rel="stylesheet")
-    link(href="index.css", rel="stylesheet")
-    script(src="index.js")
+    style
+      include ../dist/index.css
+    script
+      include ../dist/index.js
   body
     .page
       .header
