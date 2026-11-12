@@ -6,6 +6,8 @@
 * Removed the unused millis and mkdirp dependencies
 * Allowed the puppeteer install script (Chromium download) for npm versions
   which block dependency install scripts by default
+* Migrated the example test page from node-sass to sass and upgraded its
+  dependencies
 
 ### 1.8.1 (20 May 2026)
 

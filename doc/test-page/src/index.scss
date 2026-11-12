@@ -1,7 +1,10 @@
+@use 'sass:color';
+@use 'normalize.css/normalize';
+
 $header_border: #646384;
 $footer_border: #646384;
-$header_bg: lighten($header_border, 20%);
-$footer_bg: darken($footer_border, 20%);
+$header_bg: color.adjust($header_border, $lightness: 20%);
+$footer_bg: color.adjust($footer_border, $lightness: -20%);
 $text_header: #ffffff;
 $text_footer: #ffffff;
 $text_content: #000000;
